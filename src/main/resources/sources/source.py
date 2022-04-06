@@ -1,1 +1,1 @@
-print('hello wws python') 
+print('hello world')g
