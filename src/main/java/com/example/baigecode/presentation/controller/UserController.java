@@ -1,2 +1,4 @@
-package com.example.baigecode.presentation.controller;public class UserController {
+package com.example.baigecode.presentation.controller;
+
+public class UserController {
 }

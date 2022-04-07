@@ -1,1 +1,2 @@
-print('hello world')g
+x, y = input().split()
+print(int(x) + int(y))
