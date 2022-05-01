@@ -1,16 +1,21 @@
 package com.example.baigecode.presentation.controller;
 
+import com.example.baigecode.business.entity.BaigeUser;
+import com.example.baigecode.business.entity.Organization;
 import com.example.baigecode.business.entity.Problem;
 import com.example.baigecode.business.entity.Submission;
+import com.example.baigecode.business.service.OrganizationService;
 import com.example.baigecode.business.service.ProblemService;
 import com.example.baigecode.business.service.SubmissionService;
 import com.example.baigecode.business.service.UserService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.buildobjects.process.ProcBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,24 +27,19 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.security.Principal;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
 @Controller
 @Slf4j
+@RequiredArgsConstructor
 public class TaskController {
 
-    private ProblemService problemService;
-    private SubmissionService submissionService;
-
-    @Autowired
-    public TaskController(
-        ProblemService problemService,
-        SubmissionService submissionService
-    ) {
-        this.problemService = problemService;
-        this.submissionService = submissionService;
-    }
+    private final ProblemService problemService;
+    private final SubmissionService submissionService;
+    private final UserService userService;
+    private final OrganizationService organizationService;
 
     @GetMapping("/problems")
     public String getTasksPage(Model model) {
@@ -48,28 +48,80 @@ public class TaskController {
     }
 
     @GetMapping("/problem/{id}")
-    public String getProblemPage(Model model, @PathVariable Long id) {
+    public String getProblemPage(Model model, @PathVariable Long id, Principal principal) {
         Optional<Problem> problem = problemService.findProblemById(id);
-
         if(problem.isEmpty()) {
             throw new IllegalStateException("Problem with this id is not present");
         }
-
         model.addAttribute("problem", problem.get());
-
+        if(principal == null) {
+            model.addAttribute("authenticated", false);
+        } else {
+            model.addAttribute("authenticated", true);
+            Optional<BaigeUser> user = userService.getUserByUsername(principal.getName());
+            if(user.isEmpty()) {
+                throw new UsernameNotFoundException("User not found");
+            }
+            model.addAttribute("userId", user.get().getId());
+        }
         return "problem";
+    }
 
+    @GetMapping("/user/{username}")
+    public String getUserPage(@PathVariable String username, Principal principal, Model model) {
+        if(principal == null) {
+            model.addAttribute("authenticated", false);
+        } else {
+            model.addAttribute("authenticated", true);
+            Optional<BaigeUser> user = userService.getUserByUsername(username);
+            if(user.isEmpty()) {
+                return "userNotExists";
+            } else {
+                if(Objects.equals(user.get().getUsername(), principal.getName())) {
+                    model.addAttribute("pageOwner", true);
+                } else {
+                    model.addAttribute("pageOwner", false);
+                }
+                Optional<Organization> organization = Optional.empty();
+                if(user.get().getOrganization_id() != null) {
+                    organization = organizationService.getOrganizationById(user.get().getOrganization_id());
+                }
+                if(organization.isEmpty()) {
+                    model.addAttribute("hasOrganization", false);
+                } else {
+                    model.addAttribute("hasOrganization", true);
+                    model.addAttribute("organizationName", organization.get().getName());
+                    model.addAttribute("organizationId", organization.get().getId());
+                }
+                model.addAttribute("avatar", user.get().getAvatar());
+
+                model.addAttribute("totalProblems", user.get().getTotalProblems());
+                model.addAttribute("hardProblems", user.get().getHardProblems());
+                model.addAttribute("mediumProblems", user.get().getMediumProblems());
+                model.addAttribute("easyProblems", user.get().getEasyProblems());
+
+                model.addAttribute("acceptance", user.get().getAcceptance());
+
+                model.addAttribute("username", user.get().getUsername());
+            }
+        }
+        return "user";
     }
 
     @GetMapping("/status")
     public String getSubmissionPage(Model model, Principal principal) {
-        if(principal == null) {
-            return "notAuth";
+        if(principal != null) {
+            model.addAttribute("authenticated", true);
+            Optional<BaigeUser> user = userService.getUserByUsername(principal.getName());
+            if(user.isEmpty()) {
+                throw new UsernameNotFoundException("User not found");
+            }
+            model.addAttribute("userSubmissions", submissionService.getUserSubmissions(user.get().getId()));
         } else {
-
-            model.addAttribute("submissions", submissionService.getAllSubmissions());
-            return "status";
+            model.addAttribute("authenticated", false);
         }
+        model.addAttribute("submissions", submissionService.getAllSubmissions());
+        return "status";
     }
 
     @GetMapping("/submission/{id}")

@@ -22,10 +22,17 @@ public class BaigeUser {
     private Long id;
     private String username;
     private String password;
-    private Integer organization_id;
+    private Long organization_id;
     private Double acceptance;
     private Integer rating;
     private Integer contribution;
+
+    private Integer totalProblems;
+    private Integer hardProblems;
+    private Integer mediumProblems;
+    private Integer easyProblems;
+
+    private String avatar;
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
 }

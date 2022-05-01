@@ -1,6 +1,7 @@
 package com.example.baigecode.business.service;
 
 import com.example.baigecode.business.entity.BaigeUser;
+import com.example.baigecode.business.entity.Submission;
 import com.example.baigecode.persistance.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +22,7 @@ import java.util.Optional;
 public class UserService implements UserDetailsService {
     private final UserRepository userRepo;
     private final PasswordEncoder passwordEncoder;
+    private final SubmissionService submissionService;
 
     public Optional<BaigeUser> getUserById(Long id) {
         return userRepo.findById(id);
@@ -47,6 +49,9 @@ public class UserService implements UserDetailsService {
             user.get().getRoles().forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getName())));
             return new org.springframework.security.core.userdetails.User(user.get().getUsername(), user.get().getPassword(), authorities);
         }
+    }
 
+    public List<Submission> getUserSubmissions(Long id) {
+        return submissionService.getUserSubmissions(id);
     }
 }

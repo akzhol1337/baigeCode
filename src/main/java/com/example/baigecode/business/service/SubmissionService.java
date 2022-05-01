@@ -157,4 +157,8 @@ public class SubmissionService {
     public Optional<Submission> getSubmissionById(Long id) {
         return submissionRepo.findSubmissionById(id);
     }
+
+    public List<Submission> getUserSubmissions(Long id) {
+        return submissionRepo.findAllByUserId(id);
+    }
 }

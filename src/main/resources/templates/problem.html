@@ -7,14 +7,24 @@
 
     <script th:inline="javascript">
         function submit() {
-            var requestBody = new Object()
-            requestBody.sourceCode = $('#sourceCode').val()
-            requestBody.compiler = parseInt($('#lang').val())
-            requestBody.problem_id = [[${problem.id}]]
-            requestBody.user_id = 0
-            requestBody.submission_time = new Date().toISOString()
+            var authenticated = [[${authenticated}]]
 
-            $.ajax("http://localhost:1337/submit", {data: JSON.stringify(requestBody), contentType: "application/json", type: 'POST'})
+            if(authenticated === false) {
+                window.alert("Please login first");
+            } else {
+                var requestBody = new Object()
+                requestBody.sourceCode = $('#sourceCode').val()
+                requestBody.compiler = parseInt($('#lang').val())
+                requestBody.problem_id = [[${problem.id}]]
+                requestBody.user_id = [[${userId}]]
+                requestBody.submission_time = new Date().toISOString()
+
+                $.ajax("http://localhost:1337/submit", {
+                    data: JSON.stringify(requestBody),
+                    contentType: "application/json",
+                    type: 'POST'
+                })
+            }
         }
     </script>
 
