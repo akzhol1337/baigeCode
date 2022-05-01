@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class ExecutionData {
-    String command;
-    String fileExtension;
-    String name;
+    private String command;
+    private String fileExtension;
+    private String name;
 }

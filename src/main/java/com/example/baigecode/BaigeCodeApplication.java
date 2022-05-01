@@ -1,14 +1,21 @@
 package com.example.baigecode;
 
+import com.example.baigecode.business.entity.BaigeUser;
 import com.example.baigecode.business.entity.ExecutionData;
+import com.example.baigecode.business.entity.Role;
 import com.example.baigecode.business.entity.TestCases;
+import com.example.baigecode.business.service.UserService;
 import com.example.baigecode.persistance.repository.TestCasesRepository;
 import org.buildobjects.process.ProcBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.sql.DataSource;
 import java.nio.file.Path;
@@ -18,23 +25,13 @@ import java.util.List;
 import java.util.Map;
 
 @SpringBootApplication
+@EnableWebSecurity
 public class BaigeCodeApplication{
 
     public static void main(String[] args) {
         SpringApplication.run(BaigeCodeApplication.class, args);
     }
 
-    /*
-
-    @Bean
-    CommandLineRunner runner(TestCasesRepository repository){
-        return args -> {
-            TestCases testCases = new TestCases(2L, List.of("2", "45", "1553", "1991"), List.of("4", "90", "3106", "3982"));
-            repository.insert(testCases);
-        };
-    }
-
-    */
 
     @Bean
     Map<Integer, ExecutionData> executionCommand(){
@@ -55,5 +52,9 @@ public class BaigeCodeApplication{
         return executionCommand;
     }
 
+    @Bean
+    PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
 }

@@ -13,12 +13,12 @@ import javax.persistence.Id;
 @AllArgsConstructor
 public class Problem {
     @Id
-    Long id;
-    String description;
-    String title;
-    Integer difficulty;
-    Integer editorial_id;
-    Integer contest;
-    Boolean visibility;
+    private Long id;
+    private String description;
+    private String title;
+    private Integer difficulty;
+    private Integer editorial_id;
+    private Integer contest;
+    private Boolean visibility;
 
 }

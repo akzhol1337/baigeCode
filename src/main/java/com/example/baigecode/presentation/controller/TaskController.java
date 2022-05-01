@@ -5,6 +5,7 @@ import com.example.baigecode.business.entity.Submission;
 import com.example.baigecode.business.service.ProblemService;
 import com.example.baigecode.business.service.SubmissionService;
 import com.example.baigecode.business.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.buildobjects.process.ProcBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -20,10 +21,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.security.Principal;
 import java.util.Objects;
 import java.util.Optional;
 
 @Controller
+@Slf4j
 public class TaskController {
 
     private ProblemService problemService;
@@ -59,9 +62,14 @@ public class TaskController {
     }
 
     @GetMapping("/status")
-    public String getSubmissionPage(Model model) {
-        model.addAttribute("submissions", submissionService.getAllSubmissions());
-        return "status";
+    public String getSubmissionPage(Model model, Principal principal) {
+        if(principal == null) {
+            return "notAuth";
+        } else {
+
+            model.addAttribute("submissions", submissionService.getAllSubmissions());
+            return "status";
+        }
     }
 
     @GetMapping("/submission/{id}")
@@ -74,6 +82,10 @@ public class TaskController {
             model.addAttribute("sourceCode", submission.get().getSourceCode());
             return "submissionDetail";
         }
+    }
 
+    @GetMapping("/login")
+    public String login() {
+        return "login";
     }
 }

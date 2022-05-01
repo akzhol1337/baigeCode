@@ -15,14 +15,14 @@ import java.util.Date;
 public class Submission {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Long id;
-    Integer user_id;
-    Integer problem_id;
-    Integer status;
+    private Long id;
+    private Integer user_id;
+    private Integer problem_id;
+    private Integer status;
     @Column(columnDefinition = "TEXT")
-    String sourceCode;
-    Integer compiler;
-    Timestamp submission_time;
+    private String sourceCode;
+    private Integer compiler;
+    private Timestamp submission_time;
 
 
 }

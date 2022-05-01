@@ -11,7 +11,8 @@ import javax.persistence.Id;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class aUser {
+public class Role {
     @Id
-    Long id;
+    private Long id;
+    private String name;
 }
