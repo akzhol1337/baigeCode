@@ -12,11 +12,11 @@
             if(authenticated === false) {
                 window.alert("Please login first");
             } else {
-                var requestBody = new Object()
+                let requestBody = {}
                 requestBody.sourceCode = $('#sourceCode').val()
                 requestBody.compiler = parseInt($('#lang').val())
                 requestBody.problem_id = [[${problem.id}]]
-                requestBody.user_id = [[${userId}]]
+                requestBody.userId = [[${userId}]]
                 requestBody.submission_time = new Date().toISOString()
 
                 $.ajax("http://localhost:1337/submit", {

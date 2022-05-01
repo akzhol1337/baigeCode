@@ -5,8 +5,34 @@
     <title>Title</title>
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script th:inline="javascript">
-        var classList = $('body').find('.status')
-        console.log(classList)
+        let allSubmissions = null
+        let mySubmissions = null
+
+        $(document).ready(function() {
+            allSubmissions = $('#allSubmissions')
+            mySubmissions = $('#mySubmissions')
+
+            $('#allSubmissions').remove()
+            $('#mySubmissions').remove()
+        })
+
+        function showAllSubmissions() {
+            if ($('#allSubmissions').length) {
+                return
+            }
+            console.log($('#allSubmissions').length)
+            $('#mySubmissions').remove()
+            $('#body').append(allSubmissions)
+        }
+
+        function showMySubmissions() {
+            if ($('#mySubmissions').length) {
+                return
+            }
+            console.log($('#mySubmissions').length)
+            $('#allSubmissions').remove()
+            $('#body').append(mySubmissions)
+        }
 
     </script>
     <style>
@@ -16,14 +42,29 @@
         }
     </style>
 </head>
-<body>
+<body id="body">
 
-    <tr th:each="submission : ${submissions}">
-        <div class="block">
-            <td th:text="${submission.getCompiler()}"></td>
-            <td class="status" th:text="${submission.getStatus()}"></td>
-            <a th:href="@{'/submission/' + ${submission.getId()}}">Details</a>
-        </div>
-    <tr>
+    <button id="allSubmissionsButton" onclick="showAllSubmissions()">All submissions</button>
+    <button id="mySubmissionsButton" onclick="showMySubmissions()">My submissions</button>
+
+    <div id="allSubmissions">
+        <tr th:each="submission : ${submissions}">
+            <div class="block">
+                <td th:text="${submission.getCompiler()}"></td>
+                <td class="status" th:text="${submission.getStatus()}"></td>
+                <a th:href="@{'/submission/' + ${submission.getId()}}">Details</a>
+            </div>
+        <tr>
+    </div>
+
+    <div id="mySubmissions">
+        <tr th:each="submission : ${userSubmissions}">
+            <div class="block">
+                <td th:text="${submission.getCompiler()}"></td>
+                <td class="status" th:text="${submission.getStatus()}"></td>
+                <a th:href="@{'/submission/' + ${submission.getId()}}">Details</a>
+            </div>
+        <tr>
+    </div>
 </body>
 </html>
