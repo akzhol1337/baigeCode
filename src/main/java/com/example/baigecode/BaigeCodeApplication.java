@@ -29,13 +29,13 @@ public class BaigeCodeApplication{
     @Bean
     CommandLineRunner runner(TestCasesRepository repository){
         return args -> {
-            TestCases testCases = new TestCases(0L, List.of("99 100", "3 4", "5 5", "10 10"), List.of("3", "7", "10", "20"));
+            TestCases testCases = new TestCases(2L, List.of("2", "45", "1553", "1991"), List.of("4", "90", "3106", "3982"));
             repository.insert(testCases);
         };
     }
 
+    */
 
-     */
     @Bean
     Map<Integer, ExecutionData> executionCommand(){
         Map<Integer, ExecutionData> executionCommand = new HashMap<>();
@@ -54,4 +54,6 @@ public class BaigeCodeApplication{
 
         return executionCommand;
     }
+
+
 }

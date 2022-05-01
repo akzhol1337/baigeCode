@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
@@ -21,6 +22,7 @@ public class Submission {
     @Column(columnDefinition = "TEXT")
     String sourceCode;
     Integer compiler;
+    Timestamp submission_time;
 
 
 }

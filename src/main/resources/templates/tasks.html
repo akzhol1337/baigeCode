@@ -1,0 +1,38 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script th:inline="javascript">
+
+    </script>
+
+    <style>
+        tr {
+            display: flex;
+            font-size: 25px;
+        }
+
+        .problem {
+            margin: 15px;
+            border: 2px solid black;
+        }
+    </style>
+
+    <title>Document</title>
+</head>
+<body>
+ <tr th:each="problem : ${problems}">
+        <td class="problem">
+            <div class="description" th:text="${problem.difficulty}"></div>
+            <a th:href="@{'/problem/' + ${problem.id}}" > <div th:text="${problem.title}"></div> </a>
+
+        </td>
+ </tr>
+
+<!--    <div class="problems" th:each="problem : ${problems}">-->
+<!--            <div th:text="${problem.description}"></div>-->
+<!--            <div th:text="${problem.difficulty}"></div>-->
+<!--    </div>-->
+
+</body>
+</html>

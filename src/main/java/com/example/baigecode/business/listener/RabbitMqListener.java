@@ -4,8 +4,10 @@ import com.example.baigecode.business.entity.Submission;
 import com.example.baigecode.business.service.SubmissionService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -23,10 +25,14 @@ public class RabbitMqListener {
     private final ObjectMapper objectMapper;
 
     @RabbitListener(queues = "executionQueue")
-    public void processExecuteQueue(String message) throws IOException {
-        Submission submission = objectMapper.readValue(message, Submission.class);
-        log.info("#1 Received: " + message + " , Thread: " + Thread.currentThread().getId());
-        submissionService.checkSubmission(submission);
+    public void processExecuteQueue(String message){
+        try {
+            Submission submission = objectMapper.readValue(message, Submission.class);
+            log.info("#1 Received: " + message + " , Thread: " + Thread.currentThread().getId());
+            submissionService.checkSubmission(submission);
+        } catch(IOException e){
+            e.printStackTrace();
+        }
     }
 
 }

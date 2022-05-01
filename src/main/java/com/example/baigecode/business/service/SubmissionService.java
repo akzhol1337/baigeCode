@@ -5,10 +5,13 @@ import com.example.baigecode.business.entity.Submission;
 import com.example.baigecode.business.entity.TestCases;
 import com.example.baigecode.persistance.repository.SubmissionRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.mongodb.internal.Timeout;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.tomcat.jni.Proc;
 import org.buildobjects.process.ProcBuilder;
 import org.buildobjects.process.ProcResult;
+import org.buildobjects.process.TimeoutException;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.core.CustomExchange;
 import org.springframework.amqp.core.Message;
@@ -28,6 +31,7 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 
 @Service
@@ -44,23 +48,52 @@ public class SubmissionService {
         rabbitTemplate.convertAndSend("executionQueue", objectMapper.writeValueAsString(submission));
         return true;
     }
-    public String runTest(int compiler, String input) throws IOException {
-        writeFile("./src/main/resources/sources/input.txt", input);
+
+    public String runTest(int compiler, String input) {
+        try {
+            writeFile("./src/main/resources/sources/input.txt", input);
+        } catch (IOException e) {
+            log.error("Error while writing input to file");
+            return "Error while writing to file";
+        }
         // ugly af code
-        if(compiler == 0){
+        if(compiler == 0) {
             try {
-                new ProcBuilder("g++").withArgs("-std=c++17 ./src/main/resources/sources/source.cpp").run();
-                ProcResult res = new ProcBuilder("./a.out").withInput(input).run();
-                return res.getOutputString();
-            } catch (Exception e){
-                e.printStackTrace();
-                return "not defined";
+                new ProcBuilder("g++").withArgs("-std=c++17").withArgs("./src/main/resources/sources/source.cpp").run();
+                String output = new ProcBuilder("./a.out").withInput(input).run().getOutputString() + '\n';
+                return output;
+            } catch (TimeoutException e) {
+                log.error("Time limit error");
+                return "Time limit error";
+            } catch(Exception e) {
+                log.error("Runtime error");
+                return "Runtime error";
             }
-        } else if(compiler == 1){
-            ProcResult res = new ProcBuilder("python3").withArgs("./src/main/resources/sources/source.py").withInput(input).run();
-            return res.getOutputString();
+        } else if(compiler == 1) {
+            try {
+                String output = new ProcBuilder("python3").withArgs("./src/main/resources/sources/source.py").withInput(input).run().getOutputString();
+                return output;
+            } catch (TimeoutException e) {
+                log.error("Time limit error");
+                return "Time limit error";
+            } catch (Exception e) {
+                log.error("Runtime error");
+                return "Runtime error";
+            }
+        } else if(compiler == 2) {
+            try {
+                new ProcBuilder("javac").withArgs("./src/main/resources/sources/source.java").run();
+                String output = new ProcBuilder("java").withArgs("./src/main/resources/sources/source.java").withInput(input).run().getOutputString();
+                return output;
+            } catch (TimeoutException e) {
+                log.error("Time limit error");
+                return "Time limit error";
+            } catch (Exception e) {
+                log.error("Runtime error");
+                return "Runtime error";
+            }
         } else {
-            return "notDefined";
+            return "not defined";
         }
     }
 
@@ -108,12 +141,20 @@ public class SubmissionService {
         submission.setStatus(-1337);
         for (int i = 0; i < inputs.size(); i++) {
             String output = runTest(submission.getCompiler(), inputs.get(i));
-            if(!Objects.equals(output, outputs.get(i)+'\n')){
+            if(!Objects.equals(output, outputs.get(i) + '\n')){
                 log.info("Wrong answer on test: {}, Users output: {}, Correct output: {}", i, output, outputs.get(i));
                 submission.setStatus(i);
                 break;
             }
         }
         saveSubmission(submission);
+    }
+
+    public List<Submission> getAllSubmissions() {
+        return submissionRepo.findAll();
+    }
+
+    public Optional<Submission> getSubmissionById(Long id) {
+        return submissionRepo.findSubmissionById(id);
     }
 }

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+    <script th:inline="javascript">
+        function submit() {
+            var requestBody = new Object()
+            requestBody.sourceCode = $('#sourceCode').val()
+            requestBody.compiler = parseInt($('#lang').val())
+            requestBody.problem_id = [[${problem.id}]]
+            requestBody.user_id = 0
+            requestBody.submission_time = new Date().toISOString()
+
+            $.ajax("http://localhost:1337/submit", {data: JSON.stringify(requestBody), contentType: "application/json", type: 'POST'})
+        }
+    </script>
+
+
+</head>
+<body>
+    <div class="tab">
+        <div class="left">
+            <h2 th:text="${problem.title}"></h2>
+            <p th:text="${problem.difficulty}"></p>
+        
+            <p th:text="${problem.description}"></p>
+        </div>
+        <div class="right">
+            <select name="" id="lang">
+                <option value="0">C++</option>
+                <option value="1">Python</option>
+                <option value="2">Java</option>
+            </select>
+            <textarea name="" id="sourceCode" cols="30" rows="10"></textarea>
+            <input type="submit" onclick="submit()">
+        </div>
+    </div>
+    
+</body>
+</html>

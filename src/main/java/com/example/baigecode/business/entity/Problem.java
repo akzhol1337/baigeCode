@@ -14,6 +14,11 @@ import javax.persistence.Id;
 public class Problem {
     @Id
     Long id;
-    // reference to mongoDB key
-    Long test_id;
+    String description;
+    String title;
+    Integer difficulty;
+    Integer editorial_id;
+    Integer contest;
+    Boolean visibility;
+
 }

@@ -7,6 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface SubmissionRepository extends CrudRepository<Submission, Long> {
@@ -16,5 +17,7 @@ public interface SubmissionRepository extends CrudRepository<Submission, Long> {
 
     //List<Submission> getAllSubmissions();
     //Page<Submission> getAllSubmissions(Pageable pageable);
+    List<Submission> findAll();
+    Optional<Submission> findSubmissionById(Long id);
 
 }
