@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <img th:src="${avatar}">
+    <h1 th:text="${username}"></h1>
+    <p th:src="${avatar}"></p>
+    <p th:text="${totalProblems}"></p>
+    <p th:text="${hardProblems}"></p>/<p th:text="${mediumProblems}"></p>/<p th:text="${easyProblems}"></p>
+    <p th:text="${acceptance}"></p>
+
+    <a th:if="${pageOwner == true}">Edit</a>
+
+    <p th:if="${hasOrganization == true}">
+        <p th:text="${organizationName}"></p>
+    </p>
+</body>
+</html>

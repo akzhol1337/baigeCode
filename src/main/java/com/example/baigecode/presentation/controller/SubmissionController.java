@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.security.Principal;
 import java.util.Objects;
 import java.util.Queue;
 
@@ -21,11 +22,12 @@ public class SubmissionController {
     final private SubmissionService submissionService;
 
     @PostMapping("/submit")
-    public ResponseEntity<?> addSubmission(@RequestBody Submission submission) throws JsonProcessingException {
+    public ResponseEntity<?> addSubmission(@RequestBody Submission submission, Principal principal) throws JsonProcessingException {
+        if(principal == null) {
+            return ResponseEntity.badRequest().body("Please login first");
+        }
         submissionService.addSubmissionToQueue(submission);
         return ResponseEntity.ok("added wws");
     }
-
-
 
 }
