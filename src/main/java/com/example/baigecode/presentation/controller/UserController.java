@@ -19,6 +19,6 @@ public class UserController {
     @GetMapping("/save")
     public void saveUser() {
         Role role = roleService.saveRole(new Role(0L, "ROLE_USER"));
-        userService.saveUser(new BaigeUser(null, "holymolly", "2002ghbn", null, 76.7, 1337, 78, 151, 12, 79, 60, "https://assets.leetcode.com/users/avatars/avatar_1646582026.png", List.of(role)));
+        userService.saveUser(new BaigeUser(null, "sanjik", "password", null, 76.7, 1337, 78, 159, 20, 79, 60, "https://assets.leetcode.com/users/avatars/avatar_1646582026.png", List.of(role)));
     }
 }
