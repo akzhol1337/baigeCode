@@ -69,42 +69,51 @@ public class TaskController {
 
     @GetMapping("/user/{username}")
     public String getUserPage(@PathVariable String username, Principal principal, Model model) {
+        Optional<BaigeUser> user = userService.getUserByUsername(username);
+        if(user.isEmpty()) {
+            return "userNotExists";
+        }
         if(principal == null) {
             model.addAttribute("authenticated", false);
+            model.addAttribute("pageOwner", false);
         } else {
+            Optional<BaigeUser> loggedUser = userService.getUserByUsername(principal.getName());
             model.addAttribute("authenticated", true);
-            Optional<BaigeUser> user = userService.getUserByUsername(username);
-            if(user.isEmpty()) {
-                return "userNotExists";
+            model.addAttribute("loggedUsername", loggedUser.get().getUsername());
+            if(Objects.equals(user.get().getUsername(), principal.getName())) {
+                model.addAttribute("pageOwner", true);
             } else {
-                if(Objects.equals(user.get().getUsername(), principal.getName())) {
-                    model.addAttribute("pageOwner", true);
+                model.addAttribute("pageOwner", false);
+                if (loggedUser.get().getFriends().contains(user.get())) {
+                    model.addAttribute("follower", true);
                 } else {
-                    model.addAttribute("pageOwner", false);
+                    model.addAttribute("follower", false);
                 }
-                Optional<Organization> organization = Optional.empty();
-                if(user.get().getOrganization_id() != null) {
-                    organization = organizationService.getOrganizationById(user.get().getOrganization_id());
-                }
-                if(organization.isEmpty()) {
-                    model.addAttribute("hasOrganization", false);
-                } else {
-                    model.addAttribute("hasOrganization", true);
-                    model.addAttribute("organizationName", organization.get().getName());
-                    model.addAttribute("organizationId", organization.get().getId());
-                }
-                model.addAttribute("avatar", user.get().getAvatar());
-
-                model.addAttribute("totalProblems", user.get().getTotalProblems());
-                model.addAttribute("hardProblems", user.get().getHardProblems());
-                model.addAttribute("mediumProblems", user.get().getMediumProblems());
-                model.addAttribute("easyProblems", user.get().getEasyProblems());
-
-                model.addAttribute("acceptance", user.get().getAcceptance());
-
-                model.addAttribute("username", user.get().getUsername());
             }
         }
+        Optional<Organization> organization = Optional.empty();
+        if(user.get().getOrganization_id() != null) {
+            organization = organizationService.getOrganizationById(user.get().getOrganization_id());
+        }
+        if(organization.isEmpty()) {
+            model.addAttribute("hasOrganization", false);
+        } else {
+            model.addAttribute("hasOrganization", true);
+            model.addAttribute("organizationName", organization.get().getName());
+            model.addAttribute("organizationId", organization.get().getId());
+        }
+        model.addAttribute("avatar", user.get().getAvatar());
+
+        model.addAttribute("totalProblems", user.get().getTotalProblems());
+        model.addAttribute("hardProblems", user.get().getHardProblems());
+        model.addAttribute("mediumProblems", user.get().getMediumProblems());
+        model.addAttribute("easyProblems", user.get().getEasyProblems());
+
+        model.addAttribute("lastSubmissions", submissionService.getUserSubmissionsPage(user.get().getId()));
+
+        model.addAttribute("acceptance", user.get().getAcceptance());
+
+        model.addAttribute("username", user.get().getUsername());
         return "user";
     }
 

@@ -161,4 +161,8 @@ public class SubmissionService {
     public List<Submission> getUserSubmissions(Long id) {
         return submissionRepo.findAllByUserId(id);
     }
+
+    public List<Submission> getUserSubmissionsPage(Long id) {
+        return submissionRepo.findAllByUserId(id, PageRequest.of(0, 5));
+    }
 }

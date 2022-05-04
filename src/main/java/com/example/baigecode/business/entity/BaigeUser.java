@@ -35,4 +35,7 @@ public class BaigeUser {
     private String avatar;
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<BaigeUser> friends;
 }

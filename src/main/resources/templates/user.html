@@ -3,6 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script th:inline="javascript">
+
+        let loggedUsername = null
+        let pageUsername = null
+
+        $(document).ready(function() {
+            loggedUsername = [[${loggedUsername}]]
+            pageUsername = [[${username}]]
+        })
+
+        function edit() {
+            // todo
+        }
+
+        // function changeFollowerStatus(status) {
+        //     [[${follower}]] = status
+        // }
+
+        function follow(){
+            $.post('/follow/' + loggedUsername + '/' + pageUsername, function(data) {
+                let message = data.Message
+                console.log(message)
+            })
+        }
+
+        function unfollow() {
+            $.post("/unfollow/" + loggedUsername + '/' + pageUsername, function(data, xhr) {
+                let message = data.Message
+                console.log(message)
+            })
+        }
+
+    </script>
 </head>
 <body>
     <img th:src="${avatar}">
@@ -12,10 +46,31 @@
     <p th:text="${hardProblems}"></p>/<p th:text="${mediumProblems}"></p>/<p th:text="${easyProblems}"></p>
     <p th:text="${acceptance}"></p>
 
-    <a th:if="${pageOwner == true}">Edit</a>
 
-    <p th:if="${hasOrganization == true}">
+    <div th:if="${authenticated} == true">
+        <div th:if="${pageOwner} == true">
+            <button onclick="edit()">Edit</button>
+        </div>
+        <div th:if="${pageOwner} == false">
+            <div th:if="${follower} == true">
+                <button onclick="unfollow()">Unfollow</button>
+            </div>
+            <div th:if="${follower} == false">
+                <button onclick="follow()">Follow</button>
+            </div>
+        </div>
+    </div>
+
+    <p th:if="${hasOrganization} == true">
         <p th:text="${organizationName}"></p>
     </p>
+
+    <tr th:each="submission : ${lastSubmissions}">
+        <div class="block">
+            <td th:text="${submission.getCompiler()}"></td>
+            <td class="status" th:text="${submission.getStatus()}"></td>
+            <a th:href="@{'/submission/' + ${submission.getId()}}">Details</a>
+        </div>
+    <tr>
 </body>
 </html>

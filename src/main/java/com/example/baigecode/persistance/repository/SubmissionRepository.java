@@ -21,5 +21,5 @@ public interface SubmissionRepository extends JpaRepository<Submission, Long> {
     List<Submission> findAll();
     Optional<Submission> findSubmissionById(Long id);
     List<Submission> findAllByUserId(Long id);
-
+    List<Submission> findAllByUserId(Long id, Pageable pageable);
 }
