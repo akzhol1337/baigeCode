@@ -64,8 +64,9 @@ public class TaskController {
             }
             model.addAttribute("userId", user.get().getId());
         }
-        return "problem";
+        return "codepage";
     }
+
 
     @GetMapping("/user/{username}")
     public String getUserPage(@PathVariable String username, Principal principal, Model model) {
@@ -121,15 +122,11 @@ public class TaskController {
     public String getSubmissionPage(Model model, Principal principal) {
         if(principal != null) {
             model.addAttribute("authenticated", true);
-            Optional<BaigeUser> user = userService.getUserByUsername(principal.getName());
-            if(user.isEmpty()) {
-                throw new UsernameNotFoundException("User not found");
-            }
-            model.addAttribute("userSubmissions", submissionService.getUserSubmissions(user.get().getId()));
+            model.addAttribute("userSubmissions", submissionService.getUserSubmissionsStatusDto(principal.getName()));
         } else {
             model.addAttribute("authenticated", false);
         }
-        model.addAttribute("submissions", submissionService.getAllSubmissions());
+        model.addAttribute("submissions", submissionService.getAllSubmissionsStatusDto());
         return "status";
     }
 

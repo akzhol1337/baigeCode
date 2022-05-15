@@ -1,7 +1,10 @@
 package com.example.baigecode.business.service;
 
+import com.example.baigecode.business.entity.BaigeUser;
 import com.example.baigecode.business.entity.ExecutionData;
+import com.example.baigecode.business.entity.RunResult;
 import com.example.baigecode.business.entity.Submission;
+import com.example.baigecode.business.entity.SubmissionStatusDto;
 import com.example.baigecode.business.entity.TestCases;
 import com.example.baigecode.persistance.repository.SubmissionRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -32,12 +35,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
 @Slf4j
 @RequiredArgsConstructor
 public class SubmissionService {
+    private final UserService userService;
     private final SubmissionRepository submissionRepo;
     private final AmqpTemplate rabbitTemplate;
     private final ObjectMapper objectMapper;
@@ -49,51 +54,57 @@ public class SubmissionService {
         return true;
     }
 
-    public String runTest(int compiler, String input) {
+    public RunResult runTest(int compiler, String input) {
         try {
             writeFile("./src/main/resources/sources/input.txt", input);
         } catch (IOException e) {
             log.error("Error while writing input to file");
-            return "Error while writing to file";
+            return new RunResult("Error while writing to file");
         }
         // ugly af code
-        if(compiler == 0) {
+        if(compiler == 2) {
             try {
-                new ProcBuilder("g++").withArgs("-std=c++17").withArgs("./src/main/resources/sources/source.cpp").run();
-                String output = new ProcBuilder("./a.out").withInput(input).run().getOutputString() + '\n';
-                return output;
+                Long buildTime = new ProcBuilder("g++").withArgs("-std=c++17").withArgs("./src/main/resources/sources/source.cpp").run().getExecutionTime();
+                ProcResult result = new ProcBuilder("./a.out").withInput(input).run();
+                String output = result.getOutputString();
+                Long executionTime = result.getExecutionTime();
+                log.info("C++ build time: {}, execution time: {}", buildTime, executionTime);
+                log.info("C++ solution output: {}", output);
+                return new RunResult(output, executionTime);
             } catch (TimeoutException e) {
-                log.error("Time limit error");
-                return "Time limit error";
+                log.error("Time limit error: {}", e.getMessage());
+                return new RunResult("Time limit error");
             } catch(Exception e) {
-                log.error("Runtime error");
-                return "Runtime error";
+                log.error("Runtime error: {}", e.getMessage());
+                return new RunResult("Runtime error");
             }
         } else if(compiler == 1) {
             try {
-                String output = new ProcBuilder("python3").withArgs("./src/main/resources/sources/source.py").withInput(input).run().getOutputString();
-                return output;
+                ProcResult result = new ProcBuilder("python3").withArgs("./src/main/resources/sources/source.py").withInput(input).run();
+                String output = result.getOutputString();
+                Long executionTime = result.getExecutionTime();
+                return new RunResult(output, executionTime);
             } catch (TimeoutException e) {
-                log.error("Time limit error");
-                return "Time limit error";
+                log.error("Time limit error: {}", e.getMessage());
+                return new RunResult("Time limit error");
             } catch (Exception e) {
-                log.error("Runtime error");
-                return "Runtime error";
+                log.error("Runtime error: {}", e.getMessage());
+                return new RunResult("Runtime error");
             }
-        } else if(compiler == 2) {
+        } else if(compiler == 0) {
             try {
                 new ProcBuilder("javac").withArgs("./src/main/resources/sources/source.java").run();
                 String output = new ProcBuilder("java").withArgs("./src/main/resources/sources/source.java").withInput(input).run().getOutputString();
-                return output;
+                return new RunResult(output);
             } catch (TimeoutException e) {
-                log.error("Time limit error");
-                return "Time limit error";
+                log.error("Time limit error: {}", e.getMessage());
+                return new RunResult("Time limit error");
             } catch (Exception e) {
-                log.error("Runtime error");
-                return "Runtime error";
+                log.error("Runtime error: {}", e.getMessage());
+                return new RunResult("Runtime error");
             }
         } else {
-            return "not defined";
+            return new RunResult("not defined");
         }
     }
 
@@ -139,19 +150,32 @@ public class SubmissionService {
             throw new IllegalStateException("different number of inputs and outputs");
         }
         submission.setStatus(-1337);
+        Long maxExecutionTime = 0L;
         for (int i = 0; i < inputs.size(); i++) {
-            String output = runTest(submission.getCompiler(), inputs.get(i));
-            if(!Objects.equals(output, outputs.get(i) + '\n')){
-                log.info("Wrong answer on test: {}, Users output: {}, Correct output: {}", i, output, outputs.get(i));
+            RunResult runResult = runTest(submission.getCompiler(), inputs.get(i));
+            maxExecutionTime = Math.max(maxExecutionTime, runResult.getExecutionTime());
+            if(!Objects.equals(runResult.getOutput(), outputs.get(i) + '\n')){
+                log.info("Wrong answer on test: {}, Users output: {}, Correct output: {}", i, runResult.getOutput(), outputs.get(i));
                 submission.setStatus(i);
                 break;
             }
         }
+        submission.setExecutionTime(maxExecutionTime);
         saveSubmission(submission);
     }
 
     public List<Submission> getAllSubmissions() {
         return submissionRepo.findAll();
+    }
+
+    public List<SubmissionStatusDto> getAllSubmissionsStatusDto() {
+        return submissionRepo.findAll().stream().map(submission -> new SubmissionStatusDto(submission, userService.getUserById(submission.getUserId()).get().getUsername())).collect(Collectors.toList());
+        //return submissionRepo.findAll().forEach(submission -> (new SubmissionStatusDto(submission, userService.getUserById(submission.getUserId()).get().getUsername())));
+    }
+
+    public List<SubmissionStatusDto> getUserSubmissionsStatusDto(String username) {
+        Optional<BaigeUser> user = userService.getUserByUsername(username);
+        return submissionRepo.findAllByUserId(user.get().getId()).stream().map(submission -> new SubmissionStatusDto(submission, userService.getUserById(submission.getUserId()).get().getUsername())).collect(Collectors.toList());
     }
 
     public Optional<Submission> getSubmissionById(Long id) {

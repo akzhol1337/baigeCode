@@ -1,1 +1,2 @@
-while(True): print('hello there')
+x, y = input().split(); 
+print(int(x) + int(y))

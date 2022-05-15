@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Coding</title>
+</head>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<link rel="stylesheet" type="text/css" th:href="@{../main.css}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+    <!-- Codemirror import-->
+    <script src="../codemirror/codemirror-5.65.3/lib/codemirror.js"></script>
+    <link rel="stylesheet" href="../codemirror/codemirror-5.65.3/lib/codemirror.css">
+
+    <!-- Languages -->
+    <script th:src="@{../codemirror/codemirror-5.65.3/mode/python/python.js}"></script>
+    <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/mode/clike/clike.min.js}"></script>
+
+    <!-- Autocomplete -->
+    <script src="../codemirror/codemirror-5.65.3/addon/hint/anyword-hint.js"></script>
+    <script src="../codemirror/codemirror-5.65.3/addon/hint/show-hint.js"></script>
+    <link rel="stylesheet" href="../codemirror/codemirror-5.65.3/addon/hint/show-hint.css">
+    <script src="../codemirror/codemirror-5.65.3/addon/edit/closebrackets.js"></script>
+
+    <!-- Themes -->
+    <link rel="stylesheet" th:href="@{../codemirror/codemirror-5.65.3/theme/abbott.css}">
+    <link rel="stylesheet" th:href="@{../codemirror/codemirror-5.65.3/theme/dracula.css}">
+    <link rel="stylesheet" th:href="@{../codemirror/codemirror-5.65.3/theme/material.css}">
+
+	<script th:src="@{../app.js}"></script>
+
+	<script th:inline="javascript">
+		function submit() {
+			const authenticated = [[${authenticated}]]
+
+			if(authenticated === false) {
+				window.alert("Please login first");
+			} else {
+				let requestBody = {}
+
+				requestBody.sourceCode = editor.getValue()
+				requestBody.compiler = parseInt($('#lang').val())
+				requestBody.problem_id = [[${problem.id}]]
+				requestBody.userId = [[${userId}]]
+				requestBody.submission_time = new Date().toISOString()
+
+				console.log(requestBody)
+
+				$.ajax("http://localhost:1337/submit", {
+					data: JSON.stringify(requestBody),
+					contentType: "application/json",
+					type: 'POST'
+				})
+			}
+		}
+	</script>
+
+<body>
+
+<ul id="nav"><br>
+  <li><a ><img src="../img/logo.png" width="40"></a></li>
+  <li id="logoli"><a><img src="../img/profile.png" width="33"></a></li>
+  <br>
+  <li><a ><img src="../img/menu.png" width="31"></a></li>
+  <br>
+  <li><a><img src="../img/darts.png" width="37"></a></li>
+  <br>
+</ul>
+
+<div class="taskname">
+	<br>
+	<div id="tasktype">
+		<p>Hard</p>
+	</div>
+	<div>
+		<h1 th:text="${problem.title}"></h1>
+	</div>
+	<div class="solvedbyfriends">
+		<p>9 friends solved</p>
+		<div class="friendsimg">
+		<img src="../img/logo.png">
+		<img src="../img/logo.png">
+		<img src="../img/logo.png">
+		<img src="../img/logo.png">
+		<img src="../img/more.png">
+	    </div>
+	</div>
+</div>
+
+<div class="grid-container">
+	<div class="task">
+		<div class="grid-container">
+			<div id="taskdescription">
+				<p th:text="${problem.description}"></p>
+			</div>
+<!--			<div>-->
+<!--				<img src="../img/task2.png" width="230" id="tasking"><br>-->
+<!--			</div>-->
+	    </div>
+	    <div class="example">
+	    	<h4>Sample input</h4>
+	    	<br>
+	    	<div class="input">
+	    		<p>4</p>
+	    		<p>1 2</p>
+	    		<p>2 3</p>
+	    		<p>2 4</p>
+	    	</div>
+	    	<br>
+	    	<h4>Sample output</h4>
+	    	<br>
+	    	<div class="input">
+	    		<p>3 4</p>
+	    		<p>1 1 1 1</p>
+	    	</div>
+	    </div>
+	</div>
+
+	<div class="task2">
+	<div>
+    <div class="btnbtn">
+            <select id="lang" class="lang" onchange="change_language()">
+                <option value="0">Java</option>
+                <option value="1">Python</option>
+                <option value="2">C++</option>
+            </select>
+            
+            <select class="lang" id="theme" onchange="change_theme()">
+                <option value="0">Abbott</option>
+                <option value="1">Dracula</option>
+                <option value="2">Material</option>
+            </select>
+		    <input type="submit" value="▶  Run " class="tasksubmit" onclick="submit()">
+    </div>
+        </div>
+			<div class="code-area">
+            <textarea id="samplecode" class="solutionbar" cols="85" rows="50"></textarea>
+            </div>
+	</div>
+</div>
+
+</body>
+</html>

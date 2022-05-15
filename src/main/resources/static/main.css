@@ -1,0 +1,530 @@
+
+body {
+  margin: 0;
+  background-color: #5B5B5B;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+}
+
+#logoli{
+  margin-top: 300%;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 25%;
+  background-color: #f1f1f1;
+  position: fixed;
+}
+
+li a {
+  display: block;
+  color: #000;
+  padding: 10% 25%;
+  text-decoration: none;
+}
+
+#first{
+  margin-top: 5%;
+  margin-left: 5%; 
+  padding: 3% 0%;
+}
+
+#interviewstory{
+  background-color: #FFB300;
+  border-radius: 30px;
+  padding: 0.2% 2.5%;
+  width: 19%;
+  margin-left: 3%;
+}
+
+#announcement{
+  background-color: #EB4D4B;
+  border-radius: 30px;
+  padding: 0.2% 2.5%;
+  width: 19%;
+  margin-left: 3%;
+}
+
+#hours{
+  font-weight: bold;
+}
+
+#nav{
+  height: 100%;
+	width: 4.5%;
+	background-color: #2E2E2E;
+}
+
+.btn button{
+  background-color: #FFB300;
+  border: none;
+  color: white;
+  padding: 3px 25px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  margin: 10px 0px;
+  cursor: pointer;
+  border-radius: 50px;
+}
+
+.btn{
+	display: flex; 
+}
+
+#events{
+  margin-top: 22%;
+  display: flex;
+}
+
+#events a{
+  visibility: hidden;
+}
+
+.div1{
+	background-color: #888888;
+	text-align: center;
+	border-radius: 40px;
+	padding: 5px;
+	width: 350px;
+  height: 120px;
+}
+.div2{
+	background-color: #575757;
+	text-align: center;
+	border-radius: 40px;
+	padding: 5px;
+	width: 350px;
+  height: 120px;
+}
+
+#racename{
+  font-size: 23px;
+}
+
+#timelost{
+  font-size: 20px;
+  color: #D4D4D4;
+}
+
+.div1 p, .div2 p{
+  margin-top: 6%;
+}
+
+.tags{
+  margin: 2%;
+}
+
+.grid-container {
+  margin-left: 5%; padding: 2% 0%;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  padding: 20px; 
+}
+
+.select{
+	background-color: #3A3A3A;
+	color: white;
+	border: none;
+	border-radius: 25px;
+	padding: 5px 30px;
+  height: 5%;
+	font-family: Montserrat
+}
+.srch{
+	background-color: #3A3A3A;
+	color: white;
+	border-radius: 25px;
+	border: none;
+  width: 30%;
+	padding: 5.9px 35px;
+  margin-top: 1px;
+  height: 5%;
+	font-family: Montserrat
+}
+.tags{
+  margin-top: 3%;
+  margin-left: 5%;
+  display: flex; 
+}
+.tags p{
+  visibility: hidden;
+}
+
+/* TABLE */
+
+.table {
+  font-family: Montserrat, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.table{
+  margin-left: 5%; width: 800px;
+}
+
+.table #diff{
+  font-style: normal; font-size: 13px; color: grey;
+}
+
+.table td, th {
+  text-align: left;
+  padding: 10px 20px;
+}
+
+.table tr:nth-child(even) {
+  background-color: #575757;
+}  
+
+.solved{
+  padding: 25px; 
+  background-color: #3A3A3A;
+  border-radius: 30px;
+  width: 405px;
+  height: 213px;
+}
+#solvedtasks{
+  font-size: 33px;
+  margin-top: -32%;
+  margin-left: 15%;
+}
+#solvedtasks2{
+  margin-left: 15%;
+}
+.solved table a{
+  visibility: hidden;
+}
+.solved table{
+  margin-left: 55%;
+  margin-top: -20%;
+  font-size: 22px;
+}
+#medium{
+  color: orange;
+}
+#hard{
+  color: #E74C3C;
+}
+#easy{
+  color: #2ECC71;
+}
+.stat{
+  margin-left: 9%;
+  padding: 25px; 
+  background-color: #3A3A3A;
+  border-radius: 30px;
+  width: 317px;
+  height: 260px;
+}
+.stat h2{
+  color: grey;
+}
+.stat table{
+  font-size: 20px;
+}
+#avg{
+  color: grey;
+}
+.stat a{
+  visibility: hidden;
+}
+#avgpercent{
+  color: #2ECC71;
+  margin-left: 25%;
+}
+
+.grid-container3 {
+  margin-left: 5%; padding: 2% 0%;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  padding: 20px; 
+}
+
+/* LOG IN PAGE */
+
+*, *:before, *:after{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    background-color: #080710;
+}
+.background{
+    width: 530px;
+    height: 400px;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    left: 50%;
+    top: 50%;
+}
+.background .shape{
+    height: 220px;
+    width: 220px;
+    position: absolute;
+    border-radius: 50%;
+
+}
+.shape:first-child{
+  background-color: #5371FD;
+    left: -80px;
+    top: -100px;
+}
+.shape:last-child{
+    right: -80px;
+    bottom: -100px;
+}
+form{
+    height: 370px;
+    width: 400px;
+    background-color: rgba(46, 46, 46, 0.6);
+    position: absolute;
+    transform: translate(-50%,-50%);
+    top: 50%;
+    left: 50%;
+    border-radius: 10px;
+    backdrop-filter: blur(1px);
+    box-shadow: 0 0 25px rgba(8,7,16,0.6);
+    padding: 45px 35px;
+}
+.logform *{
+    font-family: 'Poppins',sans-serif;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+    outline: none;
+    border: none;
+}
+.logform h3{
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 42px;
+    text-align: center;
+}
+
+.lang{
+  margin-top: 1.2%;
+  margin-left: 3%;
+  background-color: #3A3A3A;
+  color: white;
+  border: none; 
+  border-radius: 15px;
+  padding: 6px 10px;
+  height: 5%;
+  font-family: Montserrat
+}
+
+.lang option{
+  border: none;
+
+}
+
+.tasksubmit{
+  font-family: 'Montserrat', sans-serif;
+  margin-left: 50%;
+  background-color: #3A3A3A;
+  border: none;
+  margin-top: 1.2%;
+  border-radius: 15px;
+  color: white;
+  padding: 7px 20px;
+}
+
+.logform input{
+    display: block;
+    height: 50px;
+    width: 100%;
+    background-color: rgba(255,255,255,0.07);
+    border-radius: 5px;
+    padding: 0 10px;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+button{
+    margin-top: 10px;
+    width: 100%;
+    background-color: #9A9999;
+    color: #080710;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.social2{
+	margin-top: 6%;
+	font-size: 13px;
+}
+.social2 a{
+	cursor: pointer;
+	text-decoration: none;
+}
+.social2 a:hover{
+	text-decoration: underline;
+}
+.social2 #a1{
+  margin-left: 8%;
+}
+.social2 #a2{
+  margin-left: 35%;
+}
+
+/* Task Page */
+
+.taskname{
+  text-align: center;
+  margin-left: 7%;
+}
+
+#tasktype{
+  opacity: 70%;
+  background-color: #E74C3C;
+  border-radius: 20px;
+  padding: 2px 15px;
+  width: 110px;
+  margin-left: 46%;
+}
+
+#taskdescription p{
+  font-size: 13px;
+  color: lightgrey;
+}
+
+#tasking{
+  margin-left: 5%;
+  margin-top: 17%;
+}
+
+.task{
+  background-color: #3F3F3F;
+  border-radius: 15px;
+  height: 594px;
+  width: 700px;
+}
+
+.task2{
+  margin-left: 2%;
+  background-color: #3F3F3F;
+  border-radius: 15px;
+  height: 594px;
+  width: 680px;
+}
+
+.solvedbyfriends{
+  margin-top: 0.5%;
+  margin-left: 40%;
+  padding: 4px 5px;
+  display: flex;
+  background-color: #3F3F3F;
+  border-radius: 20px;
+  width: 280px;
+}
+
+.friendsimg img{
+  margin: 0px -4px; 
+}
+
+.solvedbyfriends p{
+  margin-top: 1%;
+  padding: 0px 15px;
+}
+
+.solvedbyfriends img{
+  width: 25px;
+}
+
+.solutionbar{
+  border: none;
+  color: white;
+}
+
+.example{
+  margin-left: 5%;
+}
+
+.example h4{
+  margin-left: 3%;
+}
+
+#input{
+  background-color: #2E2E2E;
+  border-radius: 10px;
+  padding: 10px 15px;
+  width: 95%;
+}
+
+.solutionbar{ 
+  background-color: #3A3A3A;
+}
+
+.task2 textarea{
+  margin-top: 3%;
+  margin-left: 3%;
+}
+
+/* PROFILE PAGE */
+
+.profilediv{
+  text-align: center;
+  margin-left: 33%;
+  background-color: #3F3F3F;
+  width: 550px;
+  height: 700px;
+  border-radius: 30px;
+}
+
+.userinfo{
+  margin-left: 17%;
+  background-color: #2E2E2E;
+  border-radius: 20px;
+  padding: 20px 50px;
+  height: 120px;
+  width: 370px; 
+}
+
+.userinfo p{
+  font-size: 20px;
+}
+
+.userinfo table a{
+  visibility: hidden;
+}
+
+.follow{
+  display: flex;
+  margin-left: 25%;
+}
+
+.follow a{
+  visibility: hidden;
+  cursor: pointer;
+}
+
+.profilediv button{
+  background-color: #2E2E2E;
+  color: white;
+  border: none;
+  width: 100px;
+  border-radius: 20px;
+  padding: 7px 10px;
+}
+
+#follow{
+  background-color: green;
+}
+
+#unfollow{
+  background-color: red;
+}
+
+#logout{
+  margin-left: 85%;
+}
+
+.btnbtn{
+  display: flex;
+}

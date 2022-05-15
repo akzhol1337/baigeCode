@@ -51,6 +51,9 @@
         <tr th:each="submission : ${submissions}">
             <div class="block">
                 <td th:text="${submission.getCompiler()}"></td>
+                <td th:text="${submission.getUsername()}"></td>
+                <td th:text="${submission.getSubmission_time()}"></td>
+                <td th:text="${submission.getExecutionTime()}"></td>
                 <td class="status" th:text="${submission.getStatus()}"></td>
                 <a th:href="@{'/submission/' + ${submission.getId()}}">Details</a>
             </div>
@@ -61,6 +64,9 @@
         <tr th:each="submission : ${userSubmissions}">
             <div class="block">
                 <td th:text="${submission.getCompiler()}"></td>
+                <td th:text="${submission.getUsername()}"></td>
+                <td th:text="${submission.getSubmission_time()}"></td>
+                <td th:text="${submission.getExecutionTime()}"></td>
                 <td class="status" th:text="${submission.getStatus()}"></td>
                 <a th:href="@{'/submission/' + ${submission.getId()}}">Details</a>
             </div>

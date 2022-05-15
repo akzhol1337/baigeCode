@@ -23,9 +23,9 @@ public class SubmissionController {
 
     @PostMapping("/submit")
     public ResponseEntity<?> addSubmission(@RequestBody Submission submission, Principal principal) throws JsonProcessingException {
-        if(principal == null) {
-            return ResponseEntity.badRequest().body("Please login first");
-        }
+//        if(principal == null) {
+//            return ResponseEntity.badRequest().body("Please login first");
+//        }
         submissionService.addSubmissionToQueue(submission);
         return ResponseEntity.ok("added wws");
     }

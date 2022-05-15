@@ -23,6 +23,7 @@ public class Submission {
     private String sourceCode;
     private Integer compiler;
     private Timestamp submission_time;
+    private Long executionTime;
 
 
 }

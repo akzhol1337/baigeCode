@@ -29,6 +29,7 @@ public class RabbitMqListener {
         try {
             Submission submission = objectMapper.readValue(message, Submission.class);
             log.info("#1 Received: " + message + " , Thread: " + Thread.currentThread().getId());
+            log.info("User's code: {}", submission.getSourceCode());
             submissionService.checkSubmission(submission);
         } catch(IOException e){
             e.printStackTrace();

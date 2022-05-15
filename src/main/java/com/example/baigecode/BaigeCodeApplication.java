@@ -33,6 +33,7 @@ public class BaigeCodeApplication{
     }
 
 
+
     @Bean
     Map<Integer, ExecutionData> executionCommand(){
         Map<Integer, ExecutionData> executionCommand = new HashMap<>();
@@ -45,9 +46,9 @@ public class BaigeCodeApplication{
         // more soon...
 
 
-        executionCommand.put(0, new ExecutionData("g++ -std=c++17 ", ".cpp", "c++"));
+        executionCommand.put(2, new ExecutionData("g++ -std=c++17 ", ".cpp", "c++"));
         executionCommand.put(1, new ExecutionData("python3 ", ".py", "python"));
-        executionCommand.put(3, new ExecutionData("javac ", "java", "java"));
+        executionCommand.put(0, new ExecutionData("javac ", "java", "java"));
 
         return executionCommand;
     }

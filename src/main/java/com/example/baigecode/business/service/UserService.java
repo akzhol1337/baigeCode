@@ -26,7 +26,6 @@ import java.util.concurrent.atomic.AtomicReference;
 public class UserService implements UserDetailsService {
     private final UserRepository userRepo;
     private final PasswordEncoder passwordEncoder;
-    private final SubmissionService submissionService;
 
     public Optional<BaigeUser> getUserById(Long id) {
         return userRepo.findById(id);
@@ -113,7 +112,4 @@ public class UserService implements UserDetailsService {
     }
 
 
-    public List<Submission> getUserSubmissions(Long id) {
-        return submissionService.getUserSubmissions(id);
-    }
 }
