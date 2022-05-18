@@ -51,6 +51,8 @@
 					data: JSON.stringify(requestBody),
 					contentType: "application/json",
 					type: 'POST'
+				}).done(function(data){
+					console.log(data)
 				})
 			}
 		}

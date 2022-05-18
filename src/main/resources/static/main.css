@@ -166,12 +166,10 @@ li a {
   margin-left: 5%; width: 800px;
 }
 
-.table #diff{
-  font-style: normal; font-size: 13px; color: grey;
-}
+
 
 .table td, th {
-  text-align: left;
+  text-align: center;
   padding: 10px 90px;
 }
 
@@ -191,6 +189,7 @@ li a {
     text-align: left;
     padding: 10px 90px;
 }
+
 
 
 .table tr:nth-child(even) {
@@ -363,7 +362,8 @@ form{
 }
 
 button{
-    margin-top: 10px;
+    margin-top: 15px;
+    margin-bottom: 15px;
     width: 10%;
     background-color: #9A9999;
     color: #080710;
@@ -496,21 +496,18 @@ button{
 }
 
 .userinfo{
-  margin-left: 17%;
+  margin-left: 105px;
   background-color: #2E2E2E;
   border-radius: 20px;
-  padding: 20px 50px;
-  height: 120px;
-  width: 370px; 
+  padding: 30px 30px;
+  height: 220px;
+  width: 370px;
 }
 
-.userinfo p{
-  font-size: 20px;
+.userinfo h3{
 }
 
-.userinfo table a{
-  visibility: hidden;
-}
+
 
 .follow{
   display: flex;
@@ -522,13 +519,25 @@ button{
   cursor: pointer;
 }
 
-.profilediv button{
+.profilediv .userinfo button{
   background-color: #2E2E2E;
   color: white;
-  border: none;
+  border: 1px solid #282828;
   width: 100px;
   border-radius: 20px;
   padding: 7px 10px;
+}
+.profilediv .userinfo button:hover{
+    background-color: #2ECC71;
+}
+
+
+.profilediv h1{
+    margin-top: 10px;
+    margin-left: 30px;
+}
+.profilediv img{
+    margin-left: 25px;
 }
 
 #follow{

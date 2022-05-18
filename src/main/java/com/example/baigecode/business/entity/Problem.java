@@ -4,8 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.List;
 
 @Entity
 @Data
@@ -20,5 +23,8 @@ public class Problem {
     private Integer editorial_id;
     private Integer contest;
     private Boolean visibility;
-
+    private Integer usersSolved;
+    private Integer totalSubmissions;
+    @ElementCollection
+    private List<String> topics;
 }

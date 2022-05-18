@@ -2,32 +2,49 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <script th:inline="javascript">
+    <script th:inline="javascript"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script type="text/javascript" th:src="@{../app.js}"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{../main.css}">
 
-    </script>
 
     <style>
-        tr {
-            display: flex;
-            font-size: 25px;
-        }
 
-        .problem {
-            margin: 15px;
-            border: 2px solid black;
-        }
+
+
     </style>
 
-    <title>Document</title>
+    <title>Problem Set</title>
 </head>
-<body>
- <tr th:each="problem : ${problems}">
-        <td class="problem">
-            <div class="description" th:text="${problem.difficulty}"></div>
-            <a th:href="@{'/problem/' + ${problem.id}}" > <div th:text="${problem.title}"></div> </a>
+<body id = "body">
+        <button id="1">Difficulty</button>
+        <button id="2">Status</button>
+        <button id="3">Tags</button>
 
-        </td>
- </tr>
+
+    <table class = "problems">
+        <tr id="header">
+            <th id="taskid">Difficulty</th>
+            <th id="username">Description</th>
+            <th id="Submission">Visibility</th>
+            <th id="totalSubmissions">Total Submissions</th>
+            <th id="usersSolved">Users Solved</th>
+
+
+        </tr>
+
+        <tr id="pr" th:each="problem : ${problems}">
+            <td id="difficulty" th:text="${problem.difficulty}"></td>
+            <td id="description"><a th:href="@{'/problem/' + ${problem.id}}" > <div th:text="${problem.title}"></div> </a></td>
+            <td id="visibility" th:text="${problem.visibility}"></td>
+            <td id="total_submissions" th:text="${problem.totalSubmissions}"></td>
+            <td id="users_solved" th:text="${problem.usersSolved}"></td>
+
+
+
+        </tr>
+    </table>
+
 
 </body>
 </html>

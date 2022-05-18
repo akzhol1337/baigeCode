@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script type="text/javascript" th:src="@{../app.js}"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{../main.css}">
+
+
     <script th:inline="javascript">
 
         let loggedUsername = null
@@ -39,40 +43,80 @@
     </script>
 </head>
 <body>
-    <img th:src="${avatar}">
-    <h1 th:text="${username}"></h1>
-    <p th:src="${avatar}"></p>
-    <p th:text="${totalProblems}"></p>
-    <p th:text="${hardProblems}"></p>/<p th:text="${mediumProblems}"></p>/<p th:text="${easyProblems}"></p>
-    <p th:text="${acceptance}"></p>
+<!--    <div class="leftInfoBar">-->
+<!--        <img th:src="${avatar}" width = "150px">-->
+<!--        <h2 th:text="${username}"></h2>-->
+<!--        <p th:text="${totalProblems}"></p>-->
+<!--        <p th:text="${hardProblems}"></p>-->
+<!--        /-->
+<!--        <p th:text="${mediumProblems}"></p>-->
+<!--        /-->
+<!--        <p th:text="${easyProblems}"></p>-->
+<!--        <p th:text="${acceptance}"></p>-->
+<!--    </div>-->
+
+    <div class="profilediv">
+        <img th:src="${avatar}" width = "150px">
+        <br>
+        <h1 th:text="${username}"></h1>
+
+        <br><br>
+        <div class="userinfo">
+
+            <h3 th:text="${totalProblems}"></h3>
+            <h3 id="easy" th:text="${easyProblems}"></h3>
+            <h3 id="medium" th:text="${mediumProblems}"></h3>
+            <h3 id="hard" th:text="${hardProblems}"></h3>
+            <h3 th:text="${acceptance}"></h3>
 
 
-    <div th:if="${authenticated} == true">
-        <div th:if="${pageOwner} == true">
-            <button onclick="edit()">Edit</button>
+
+
+            <button>Edit</button>
         </div>
-        <div th:if="${pageOwner} == false">
-            <div th:if="${follower} == true">
-                <button onclick="unfollow()">Unfollow</button>
-            </div>
-            <div th:if="${follower} == false">
-                <button onclick="follow()">Follow</button>
-            </div>
-        </div>
+
     </div>
 
-    <p th:if="${hasOrganization} == true">
-        <p th:text="${organizationName}"></p>
-    </p>
+<!--    <div th:if="${authenticated} == true">-->
+<!--        <div th:if="${pageOwner} == true">-->
+<!--            <button onclick="edit()">Edit</button>-->
+<!--        </div>-->
+<!--        <div th:if="${pageOwner} == false">-->
+<!--            <div th:if="${follower} == true">-->
+<!--                <button onclick="unfollow()">Unfollow</button>-->
+<!--            </div>-->
+<!--            <div th:if="${follower} == false">-->
+<!--                <button onclick="follow()">Follow</button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
 
-    <tr th:each="submission : ${lastSubmissions}">
-        <div class="block">
-            <td th:text="${submission.getCompiler()}"></td>
-            <td class="status" th:text="${submission.getStatus()}"></td>
-            <a th:href="@{'/submission/' + ${submission.getId()}}">Details</a>
-        </div>
-    <tr>
+<!--    <p th:if="${hasOrganization} == true">-->
+<!--        <p th:text="${organizationName}"></p>-->
+<!--    </p>-->
+
+
+        <tr th:each="submission : ${lastSubmissions}">
+            <div class="block">
+                <td th:text="${submission.getCompiler()}"></td>
+                <td class="status" th:text="${submission.getStatus()}"></td>
+                <a th:href="@{'/submission/' + ${submission.getId()}}">Details</a>
+            </div>
+        <tr>
 
 
 </body>
+
+<style>
+    .leftInfoBar{
+        background-color:#282828;
+        width: 200px;
+        border: 5px solid #282828;
+        border-radius: 25px;
+        margin-left: 70px;
+    }
+    .leftInfoBar p{
+        align-items: center;
+    }
+</style>
 </html>
