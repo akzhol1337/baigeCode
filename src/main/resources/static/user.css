@@ -26,6 +26,8 @@ body{
     padding: 8px 8px 8px 10px;
     text-decoration: none;    
     display: block;
+    text-decoration: none;
+    color: white;
 }
 
 .sidenav a:hover{
@@ -259,7 +261,6 @@ body{
     background-color: #593a3a; 
     border-radius: 10px;
 
-
 } 
  
 .progress{ 
@@ -306,7 +307,7 @@ body{
     border-color: #1a1a1a;
     background-color: #1a1a1a;
     height: 20px;
-    width: 100vh;
+    width: 95%;
     margin-bottom: 15px;
 
     display: flex;

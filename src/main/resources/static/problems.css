@@ -50,6 +50,9 @@ body{
     padding: 8px 8px 8px 12px;
     text-decoration: none;    
     display: block;
+
+    text-decoration: none;
+    color: white;
 }
 
 .sidenav a:hover{
@@ -155,7 +158,9 @@ body{
     margin-right: auto;
 }
 
-
+.card .problem-set:nth-child(even){
+    background-color: #282828;
+}
 
 
 .card .problem-set{    
@@ -166,16 +171,13 @@ body{
 }
 
 .card .problem-set .problem{
-     
-    height: 55px;  
-
+    height: 55px;
     display: flex;
     flex-direction: row;
+}.card .problem-set .problem:hover{
+    background-color: #9b9b9f;
 }
 
-.card .problem-set .problem:nth-child(even){
-    background-color: #282828;        
-}
 
 
 .card .problem-set .problem span {
@@ -186,12 +188,16 @@ body{
      
 
     width: 10%;
+}.card .problem-set .problem a {
+    text-decoration: none;
+    color: white;
 }
 
 
 .card .problem-set .problem h4 {
     margin-top: 18px; 
     width: 80%;
+
 }
 
 .card .problem-set .problem h5{

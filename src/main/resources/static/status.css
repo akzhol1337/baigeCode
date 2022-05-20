@@ -50,6 +50,8 @@ body{
     padding: 8px 8px 8px 12px;
     text-decoration: none;    
     display: block;
+    text-decoration: none;
+    color: white;
 }
 
 .sidenav a:hover{
@@ -228,6 +230,12 @@ tbody tr:hover {background-color: #7b7b7b;}
 .accepted{
     color: #2ecc71;
 }
-.wrong{
+.wronganswer{
+    color: #ef4743;
+}.compileerror{
+    color: #ef4743;
+}.timelimit{
+    color: #ef4743;
+}.runtimeerror{
     color: #ef4743;
 }

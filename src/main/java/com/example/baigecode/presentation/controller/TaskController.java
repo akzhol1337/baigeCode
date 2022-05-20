@@ -47,6 +47,65 @@ public class TaskController {
         return "problems";
     }
 
+    @GetMapping("/myProfile")
+    public String getMyProfile(Principal principal, Model model) {
+        if(principal == null) {
+            return "notAuth";
+        }
+        Optional<BaigeUser> user = userService.getUserByUsername(principal.getName());
+        if(user.isEmpty()) {
+            return "userNotExists";
+        }
+        if(principal == null) {
+            model.addAttribute("authenticated", false);
+            model.addAttribute("pageOwner", false);
+        } else {
+            Optional<BaigeUser> loggedUser = userService.getUserByUsername(principal.getName());
+            model.addAttribute("authenticated", true);
+            model.addAttribute("loggedUsername", loggedUser.get().getUsername());
+            if(Objects.equals(user.get().getUsername(), principal.getName())) {
+                model.addAttribute("pageOwner", true);
+            } else {
+                model.addAttribute("pageOwner", false);
+                if (loggedUser.get().getFriends().contains(user.get())) {
+                    model.addAttribute("follower", true);
+                } else {
+                    model.addAttribute("follower", false);
+                }
+            }
+        }
+        Optional<Organization> organization = Optional.empty();
+        if(user.get().getOrganization_id() != null) {
+            organization = organizationService.getOrganizationById(user.get().getOrganization_id());
+        }
+        if(organization.isEmpty()) {
+            model.addAttribute("hasOrganization", false);
+        } else {
+            model.addAttribute("hasOrganization", true);
+            model.addAttribute("organizationName", organization.get().getName());
+            model.addAttribute("organizationId", organization.get().getId());
+        }
+        model.addAttribute("avatar", user.get().getAvatar());
+
+        model.addAttribute("totalProblems", user.get().getTotalProblems());
+        model.addAttribute("hardProblems", user.get().getHardProblems());
+        model.addAttribute("mediumProblems", user.get().getMediumProblems());
+        model.addAttribute("easyProblems", user.get().getEasyProblems());
+
+        if (principal == null){
+            model.addAttribute("authenticated", false);
+            model.addAttribute("pageOwner", false);
+        } else {
+            model.addAttribute("lastSubmissions", submissionService.getUserSubmissionsStatusDto(principal.getName()));
+        }
+
+
+        model.addAttribute("acceptance", user.get().getAcceptance());
+
+        model.addAttribute("username", user.get().getUsername());
+        return "profile";
+    }
+
     @GetMapping("/problem/{id}")
     public String getProblemPage(Model model, @PathVariable Long id, Principal principal) {
         Optional<Problem> problem = problemService.findProblemById(id);

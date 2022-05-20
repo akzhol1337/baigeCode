@@ -160,7 +160,7 @@ public class SubmissionService {
         for (int i = 0; i < inputs.size(); i++) {
             RunResult runResult = runTest(submission.getCompiler(), inputs.get(i));
             maxExecutionTime = Math.max(maxExecutionTime, runResult.getExecutionTime());
-            if(!Objects.equals(runResult.getOutput(), outputs.get(i) + '\n')){
+            if(!Objects.equals(runResult.getOutput(), outputs.get(i))){
                 log.info("Wrong answer on test: {}, Users output: {}, Correct output: {}", i, runResult.getOutput(), outputs.get(i));
                 submission.setStatus(i);
                 break;
