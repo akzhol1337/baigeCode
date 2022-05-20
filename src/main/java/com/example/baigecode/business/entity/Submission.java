@@ -17,7 +17,7 @@ public class Submission {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Long userId;
-    private Integer problem_id;
+    private Long problem_id;
     private Integer status;
     @Column(columnDefinition = "TEXT")
     private String sourceCode;

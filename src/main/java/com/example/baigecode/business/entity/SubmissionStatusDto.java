@@ -19,12 +19,15 @@ public class SubmissionStatusDto {
     private Integer compiler;
     private Timestamp submission_time;
     private Long executionTime;
-    public SubmissionStatusDto(Submission submission, String username) {
+    private String problemName;
+
+    public SubmissionStatusDto(Submission submission, String username, String problemName) {
         this.username = username;
         id = submission.getId();
         status = submission.getStatus();
         compiler = submission.getCompiler();
         submission_time = submission.getSubmission_time();
         executionTime = submission.getExecutionTime();
+        this.problemName = problemName;
     }
 }

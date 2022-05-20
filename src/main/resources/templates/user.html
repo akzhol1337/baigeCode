@@ -43,17 +43,6 @@
     </script>
 </head>
 <body>
-<!--    <div class="leftInfoBar">-->
-<!--        <img th:src="${avatar}" width = "150px">-->
-<!--        <h2 th:text="${username}"></h2>-->
-<!--        <p th:text="${totalProblems}"></p>-->
-<!--        <p th:text="${hardProblems}"></p>-->
-<!--        /-->
-<!--        <p th:text="${mediumProblems}"></p>-->
-<!--        /-->
-<!--        <p th:text="${easyProblems}"></p>-->
-<!--        <p th:text="${acceptance}"></p>-->
-<!--    </div>-->
 
     <div class="profilediv">
         <img th:src="${avatar}" width = "150px">
@@ -77,19 +66,19 @@
 
     </div>
 
-<!--    <div th:if="${authenticated} == true">-->
-<!--        <div th:if="${pageOwner} == true">-->
-<!--            <button onclick="edit()">Edit</button>-->
-<!--        </div>-->
-<!--        <div th:if="${pageOwner} == false">-->
-<!--            <div th:if="${follower} == true">-->
-<!--                <button onclick="unfollow()">Unfollow</button>-->
-<!--            </div>-->
-<!--            <div th:if="${follower} == false">-->
-<!--                <button onclick="follow()">Follow</button>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
+    <div th:if="${authenticated} == true">
+        <div th:if="${pageOwner} == true">
+            <button onclick="edit()">Edit</button>
+        </div>
+        <div th:if="${pageOwner} == false">
+            <div th:if="${follower} == true">
+                <button onclick="unfollow()">Unfollow</button>
+            </div>
+            <div th:if="${follower} == false">
+                <button onclick="follow()">Follow</button>
+            </div>
+        </div>
+    </div>
 
 <!--    <p th:if="${hasOrganization} == true">-->
 <!--        <p th:text="${organizationName}"></p>-->

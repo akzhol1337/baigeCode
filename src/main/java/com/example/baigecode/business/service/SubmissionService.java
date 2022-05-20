@@ -6,6 +6,7 @@ import com.example.baigecode.business.entity.RunResult;
 import com.example.baigecode.business.entity.Submission;
 import com.example.baigecode.business.entity.SubmissionStatusDto;
 import com.example.baigecode.business.entity.TestCases;
+import com.example.baigecode.persistance.repository.ProblemRepository;
 import com.example.baigecode.persistance.repository.SubmissionRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.mongodb.internal.Timeout;
@@ -42,6 +43,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @RequiredArgsConstructor
 public class SubmissionService {
+    private final ProblemRepository problemRepo;
     private final UserService userService;
     private final SubmissionRepository submissionRepo;
     private final AmqpTemplate rabbitTemplate;
@@ -108,6 +110,10 @@ public class SubmissionService {
         }
     }
 
+    public String getProblemNameById(Long id){
+        return problemRepo.getTitleById(id).getTitle();
+    }
+
     private void writeFile(String pathToFile, String content) throws IOException {
         Path path = Paths.get(pathToFile);
         byte[] contentBytes = content.getBytes();
@@ -169,13 +175,13 @@ public class SubmissionService {
     }
 
     public List<SubmissionStatusDto> getAllSubmissionsStatusDto() {
-        return submissionRepo.findAll().stream().map(submission -> new SubmissionStatusDto(submission, userService.getUserById(submission.getUserId()).get().getUsername())).collect(Collectors.toList());
+        return submissionRepo.findAll().stream().map(submission -> new SubmissionStatusDto(submission, userService.getUserById(submission.getUserId()).get().getUsername(), getProblemNameById(submission.getProblem_id()))).collect(Collectors.toList());
         //return submissionRepo.findAll().forEach(submission -> (new SubmissionStatusDto(submission, userService.getUserById(submission.getUserId()).get().getUsername())));
     }
 
     public List<SubmissionStatusDto> getUserSubmissionsStatusDto(String username) {
         Optional<BaigeUser> user = userService.getUserByUsername(username);
-        return submissionRepo.findAllByUserId(user.get().getId()).stream().map(submission -> new SubmissionStatusDto(submission, userService.getUserById(submission.getUserId()).get().getUsername())).collect(Collectors.toList());
+        return submissionRepo.findAllByUserId(user.get().getId(),  PageRequest.of(0, 10)).stream().map(submission -> new SubmissionStatusDto(submission, userService.getUserById(submission.getUserId()).get().getUsername(), getProblemNameById(submission.getProblem_id()))).collect(Collectors.toList());
     }
 
     public Optional<Submission> getSubmissionById(Long id) {

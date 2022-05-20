@@ -110,12 +110,17 @@ public class TaskController {
         model.addAttribute("mediumProblems", user.get().getMediumProblems());
         model.addAttribute("easyProblems", user.get().getEasyProblems());
 
-        model.addAttribute("lastSubmissions", submissionService.getUserSubmissionsPage(user.get().getId()));
+        if (principal == null){
+            model.addAttribute("authenticated", false);
+            model.addAttribute("pageOwner", false);
+        } else {
+            model.addAttribute("lastSubmissions", submissionService.getUserSubmissionsStatusDto(principal.getName()));
+        }
 
         model.addAttribute("acceptance", user.get().getAcceptance());
 
         model.addAttribute("username", user.get().getUsername());
-        return "user";
+        return "profile";
     }
 
     @GetMapping("/status")

@@ -8,4 +8,5 @@ import java.util.List;
 
 @Repository
 public interface ProblemRepository extends JpaRepository<Problem, Long> {
+    Problem getTitleById(Long id);
 }
