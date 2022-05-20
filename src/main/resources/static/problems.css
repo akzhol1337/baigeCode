@@ -1,0 +1,274 @@
+@import url('https://fonts.googleapis.com/css2?family=Cabin&family=DM+Sans&family=Montserrat:wght@400;500;600&family=Nunito+Sans&family=Oxygen&family=Source+Code+Pro&display=swap');
+body{
+    background-color: #1a1a1a;
+    font-family: 'Montserrat', sans-serif;
+    color: white;    
+}
+
+#line{
+    border: 0;
+    border-bottom: 2px solid #4d4c4d;
+    width: 92%;
+}
+
+#short-horizontal-line{
+    border: 0;
+    border-bottom: 4px solid #a4a4a4;
+    width: 24px;
+    margin-left:0;
+    margin-right:0;
+
+    margin-top: 10px;
+}
+
+#verticaline{   
+    border: 0;   
+    border-right: 2px solid #4d4c4d;    
+    height: 145px;  
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+.sidenav{
+    background-color: #282828;
+    height: 100%;  
+    width: 60px;  
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    padding-top: 60px;    
+    align-items: center;
+}
+
+.sidenav img{
+    padding-left: 8px;
+    padding-bottom: 170px;
+}
+
+.sidenav a{
+    padding: 8px 8px 8px 12px;
+    text-decoration: none;    
+    display: block;
+}
+
+.sidenav a:hover{
+    background-color: #FFB300;
+    border-radius: 5px;
+}
+
+.sidenav a:active{
+    background-color: #FFB300
+}
+
+.sidenav span{
+    border-right: 5px solid #FFB300;
+    
+}
+
+
+.container {
+    display:flex;
+    flex-direction: row;
+}
+
+.card{
+    margin-top: 50px;
+    margin-left: 150px;
+    border-radius: 15px;
+    border-width: 4px;
+    width: 75%;
+    height: 650px;
+    
+
+    display:flex;
+    flex-direction: column;
+}
+
+.card .options {
+    position: relative;    
+    display: flex;
+    flex-direction: row;    
+}
+
+.card .options select{  
+    margin-top: 10px;
+    margin-left: 10px;   
+    font-size: 15px;           
+    background-color: #282828;
+    width: fit-content;
+
+    padding: 5px 5px 5px 5px;
+    
+    border: 1px solid #282828;    
+    border-radius: 30px;
+    color: white;
+}
+
+.card .options input{  
+    margin-top: 10px;
+    margin-left: 30px;   
+    font-size: 15px;           
+    background-color: #282828;
+    width: 200px;
+
+    padding: 5px 5px 5px 5px;
+    
+    border: 1px solid #282828;    
+    border-radius: 30px;
+    color: white;
+}
+
+.card .options select #easy{  
+    margin: 5px 5px 5px 5px;
+    color: #2ecc71;                  
+}.card .options select #medium{    
+    color: #ffc01e;                  
+}.card .options select #hard{    
+    color: #ef4743;                  
+}
+
+.card .options select #todo{  
+    margin: 5px 5px 5px 5px;                
+}.card .options select #solved{    
+    color: #00b8a3;      
+}.card .options select #attempted{    
+    color: #f1c40f;                                  
+}
+
+
+
+.card .titles{
+    margin-top: 20px;
+    margin-left: 25px;
+    color: #bdc3c7;
+    
+    display: flex;
+    flex-direction: row;
+}
+
+.card .titles .title{
+    margin-left:50px;
+}
+
+.card .titles .title{
+    margin-right: auto;
+}
+
+
+
+
+.card .problem-set{    
+    margin-left: 15px;  
+    
+    display: flex;
+    flex-direction: column;
+}
+
+.card .problem-set .problem{
+     
+    height: 55px;  
+
+    display: flex;
+    flex-direction: row;
+}
+
+.card .problem-set .problem:nth-child(even){
+    background-color: #282828;        
+}
+
+
+.card .problem-set .problem span {
+    padding-top: 15px;  
+    padding-bottom: 15px;
+
+    padding-left: 20px;
+     
+
+    width: 10%;
+}
+
+
+.card .problem-set .problem h4 {
+    margin-top: 18px; 
+    width: 80%;
+}
+
+.card .problem-set .problem h5{
+    margin-top: 18px; 
+    margin-right: 10px;
+    font-size: 16px;            
+    text-align: right;
+
+    width: 10%;
+}
+
+.card .problem-set .problem .easy1{
+    color: #2ecc71;                        
+}.card .problem-set .problem .medium1{
+    color: #ffc01e;                 
+}.card .problem-set .problem .hard1{
+    color: #ef4743;                 
+}
+
+
+
+
+
+
+
+
+.right{
+    margin-top: 80px; 
+    margin-left: 120px; 
+    margin-right: 90px; 
+    border-width: 4px;
+    /* border: 1px solid; */
+    display: flex;
+    flex-direction: column;    
+
+    width: 25%; 
+}
+
+.right .problem-data{  
+    margin-top: 200px;
+      
+    border: 1px solid #282828;
+    background-color:#282828;
+    border-radius: 15px;
+    border-width: 4px;
+    width: 18%;
+
+    display: flex;
+    flex-direction: column;    
+    position: fixed;
+    
+}
+
+
+.right .problem-data .easy2{            
+    margin-top: 20px;   
+    margin-left: 20px;  
+    color: #2ecc71;                             
+}
+.right .problem-data .medium2{            
+    margin-top: 15px;   
+    margin-left: 20px;     
+    color: #ffc01e;                 
+  
+}
+.right .problem-data .hard2{            
+    margin-top: 15px;   
+    margin-left: 20px; 
+    color: #ef4743;                       
+}
+
+.right .problem-data span{            
+    margin-left: 10px;   
+    color: white;                 
+     
+}
+
+
+
+

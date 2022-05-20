@@ -44,7 +44,7 @@ public class TaskController {
     @GetMapping("/problems")
     public String getTasksPage(Model model) {
         model.addAttribute("problems", problemService.getAllProblems());
-        return "tasks";
+        return "problems";
     }
 
     @GetMapping("/problem/{id}")
@@ -117,6 +117,7 @@ public class TaskController {
             model.addAttribute("lastSubmissions", submissionService.getUserSubmissionsStatusDto(principal.getName()));
         }
 
+
         model.addAttribute("acceptance", user.get().getAcceptance());
 
         model.addAttribute("username", user.get().getUsername());
@@ -132,7 +133,7 @@ public class TaskController {
             model.addAttribute("authenticated", false);
         }
         model.addAttribute("submissions", submissionService.getAllSubmissionsStatusDto());
-        return "status";
+        return "newstatus";
     }
 
     @GetMapping("/submission/{id}")
