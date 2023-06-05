@@ -1,83 +1,131 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="shortcut icon" href="../img/horse.png" type="image/x-icon">
 
-    <style>
-        body {
-            display: flex;
-        }
+    <link rel="stylesheet" href="../css/main.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="/webjars/jquery/jquery.min.js"></script>
 
-        section {
-            width: 100%;
-            margin: auto;
-            font-size: 45px;
-            color: white;
-        }
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $( document ).ready(function() {
+            $('.login').on('click', function() {
+                $('#result_msg').html('');
+                var username1 = $('#username').val();
+                var password1 = $('#password').val();
 
-        input {
-            border: none;
-            padding: 15px;
-            width: 150px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-    </style>
+                var tokens;
+
+                var xhr = new XMLHttpRequest();
+                var body = 'username=' + encodeURIComponent(username1) + '&password=' + encodeURIComponent(password1);
+                xhr.open("POST", 'login', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.onreadystatechange = function() {
+                    if (this.readyState != 4 && xhr.status != 200) {
+                        $('#result_msg').html('Wrong username or password');
+                        return;
+                    }
+                    if(xhr.readyState === 4 && xhr.status === 200) {
+                        console.log(this.responseText)
+                        tokens = JSON.parse(this.responseText)
+
+                        console.log("access_token: ", tokens.access_token)
+                        console.log("username: ", tokens.username)
+                        document.cookie="Authorization=Bearer" + tokens.access_token
+                        document.cookie="Refresh_token=" + tokens.refresh_token
+                        document.cookie="haha=haha"
+                        //document.cookie="username="+tokens.username;
+                        window.location.replace("http://localhost:1337/user/" + username1)
+                    }
+                };
+                xhr.send(body);
+            });
+        });
+    </script>
 
 </head>
 <body>
 
-<section class="loginBox" style="position: center; display: flex; flex-direction: column; align-items: center;">
-    <h1>Log in</h1>
-    <div class="form" style=" display: flex; flex-direction: column; align-content: space-between; width: 50%;">
-        <input type="text" id="username" name="username" placeholder="Username">
-        <input type="password" id="password" name="password" placeholder="Password">
-        <input type="submit" id="login" name="login" value="Log in">
+<div class="main p-4 flex flex-col md:flex-row min-h-screen">
+
+    <div class="left flex flex-col w-full md:w-1/2 p-6 md:p-12 rounded-md">
+        <a href="/index.html">
+            <img src="../img/horse.png" width="45px">
+        </a>
+
+        <p class = "pt-8 md:pt-24" id = "slogan-2">Make real qadam to<br> FAANG with us!</p>
+
+        <p class = "pt-8 pb-12" id = "sub-to-slogan-2">- Salamaleikum! Kalai jagdai? che uje FAANG-tasyn ba ne? <br>- joq <br>- onda ne qotagym jep otyrsyn, mal wws!</p>
+
+        <div class="testinomials flex flex-col rounded-md p-6 mt-auto">
+            <p id = "feedback">More than getting 4 offers, I was happy with meeting awesome people, whom I call friends now. <b>baigecode</b> is a culture nourishing strong connections and celebrating your every success. I love being a part of it.</p>
+
+            <div class="flex flex-row pt-6">
+                <img src="../img/akzhol.jpg" class="rounded-full h-11 w-11" alt="...">
+
+                <div class="testinomial-info flex flex-col pl-4">
+                    <p id = "testinomial-name">Akzhol Issaliyev</p>
+                    <p class = "pt-0" id = "job-position">Software Engineer at Meta</p>
+                </div>
+
+
+
+            </div>
+        </div>
+
+
     </div>
 
-    <div id="result_msg">
+    <div class="right flex flex-col w-full p-12 md:w-1/2 md:p-12">
+
+        <div class="pt-24 px-4 md:px-12">
+            <p id = "h-3">Welcome back!</p>
+            <p id = "h-4">Che halyavit' etip boldyn ba?</p>
+        </div>
+
+        <form class="pt-8 px-4 md:px-12 ">
+            <!-- Username -->
+            <div class="mb-4">
+                <label class="block text-sm mb-2" for="username">
+                    Username
+                </label>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="">
+            </div>
+
+            <!-- Password -->
+            <div class="mb-12">
+                <label class="block text-sm mb-2" for="password">
+                    Password
+                </label>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="">
+            </div>
+
+            <!-- Submit Button -->
+            <div class="flex flex-col items-center justify-center">
+                <button id="button-id" class="login text-white font-semibold py-3 px-6 rounded" type="button">
+                    <p id = "button-text">Login</p>
+                </button>
+
+                <p id = "have-an-account" class = "pt-12">Don’t have an account? <a href="/signup.html">Sign Up</a> </p>
+
+            </div>
+        </form>
+
 
     </div>
-</section>
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script src="/webjars/jquery/jquery.min.js"></script>
+</div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script type="text/javascript">
-    $( document ).ready(function() {
-        $('#login').on('click', function() {
-            $('#result_msg').html('');
-            var username1 = $('#username').val();
-            var password1 = $('#password').val();
 
-            var tokens;
 
-            var xhr = new XMLHttpRequest();
-            var body = 'username=' + encodeURIComponent(username1) + '&password=' + encodeURIComponent(password1);
-            xhr.open("POST", 'login', true);
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            xhr.onreadystatechange = function() {
-                if (this.readyState != 4 && xhr.status != 200) {
-                    $('#result_msg').html('Wrong username or password');
-                    return;
-                }
-                if(xhr.readyState === 4 && xhr.status === 200) {
-                    console.log(this.responseText)
-                    tokens = JSON.parse(this.responseText)
 
-                    console.log("access_token: ", tokens.access_token)
-                    console.log("username: ", tokens.username)
-                    document.cookie="Authorization=Bearer" + tokens.access_token
-                    document.cookie="Refresh_token=" + tokens.refresh_token
-                    document.cookie="haha=haha"
-                    //document.cookie="username="+tokens.username;
-                    window.location.replace("http://localhost:1337")
-                }
-            };
-            xhr.send(body);
-        });
-    });
-</script>
+
+
 </body>
+
 </html>

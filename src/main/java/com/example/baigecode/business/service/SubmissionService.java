@@ -159,7 +159,14 @@ public class SubmissionService {
         Long maxExecutionTime = 0L;
         for (int i = 0; i < inputs.size(); i++) {
             RunResult runResult = runTest(submission.getCompiler(), inputs.get(i));
-            maxExecutionTime = Math.max(maxExecutionTime, runResult.getExecutionTime());
+
+            var bx = runResult.getExecutionTime();
+
+            if (bx == null) {
+                bx = 12L;
+            }
+
+            maxExecutionTime = Math.max(maxExecutionTime, bx);
             if(!Objects.equals(runResult.getOutput(), outputs.get(i))){
                 log.info("Wrong answer on test: {}, Users output: {}, Correct output: {}", i, runResult.getOutput(), outputs.get(i));
                 submission.setStatus(i);
@@ -175,6 +182,14 @@ public class SubmissionService {
     }
 
     public List<SubmissionStatusDto> getAllSubmissionsStatusDto() {
+
+
+        var a = submissionRepo.findAll();
+
+        log.info("finaAll : {}", a);
+
+        log.info("sz: {}", a.size());
+
         return submissionRepo.findAll().stream().map(submission -> new SubmissionStatusDto(submission, userService.getUserById(submission.getUserId()).get().getUsername(), getProblemNameById(submission.getProblem_id()))).collect(Collectors.toList());
         //return submissionRepo.findAll().forEach(submission -> (new SubmissionStatusDto(submission, userService.getUserById(submission.getUserId()).get().getUsername())));
     }

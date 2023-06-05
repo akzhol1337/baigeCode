@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+body {
+    font-family: 'Outfit', sans-serif;
+    height: 100%;
+    letter-spacing: 0.3px;
+}
+
+
+#example-num {
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.in-out {
+    background-color: #F8F8F8;
+}
+
+#str {
+    color:#F2721C;
+
+    font-weight: 500;
+    font-size: 23px;
+
+    padding-left: 5px;
+}
+
+
+#username {    
+    font-weight: 500;
+    font-size: 20px;
+
+
+    padding-left: 10px;
+
+    padding-top: 2px;
+}
+
+#slogan{
+    font-weight: 300;
+    font-size: 20px;
+
+    color: #6A6A6A;
+}
+
+
+
+#problem-title{
+    font-weight: 600;
+    font-size: 25px;
+}
+
+#difficulty{
+    font-weight: 500;
+
+    color:white;
+    background-color: #F2721C;
+}
+
+.friends-solved {
+    background-color: #3A3A3A;
+}
+
+
+.friends-solved p{
+    color: rgb(255, 255, 255);
+
+    font-weight: 500;
+    font-size: 16px;
+
+   
+}
+
+@media (min-width: 768px) and (max-width: 1352px) {
+    .friends-solved {
+        align-items: center;
+    }
+    .friends-solved p {
+        font-size: 11px;
+        text-align: center;
+    }
+    
+}
+
+
+.svg-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.svg-1, .svg-3{
+    cursor: pointer;
+}
+
+.svg-2 {
+    cursor: pointer;
+    display: none;
+}
+.svg-4 {
+    cursor: pointer;
+    display: none;
+}

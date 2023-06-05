@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+body {
+    font-family: 'Outfit', sans-serif;
+    height: 100%;
+    letter-spacing: 0.5px;
+}
+
+.user-info, .submission-info {
+    background-color: #1A1A1A;
+}
+
+#easy{
+    font-weight: 400;
+
+    color:white;
+    background-color: #2ECC71;
+}
+#medium{
+    font-weight: 400;
+
+    color:white;
+    background-color: #F2721C;
+}
+#hard{
+    font-weight: 400;
+
+    color:white;
+    background-color: #FF4D4D;
+}
+
+#status {
+    color: #2ECC71;
+}
+
+#full-name {
+    color:white;
+
+    font-size: 26px;
+    font-weight: 600;
+}
+
+#username {
+    color:white;
+
+    font-size: 18px;
+    font-weight: 300;
+}
+
+
+#recent-submissions {
+    color:white;
+
+    font-size: 22px;
+    font-weight: 600;
+}
+
+span {
+    font-size: 21px;
+}
+
+#rank {
+    color:white;
+
+    font-size: 21px;
+    font-weight: 500;
+}
+
+#points {
+    color:white;
+
+    font-size: 21px;
+    font-weight: 600;
+}
+
+
+
+
+.container-2 {
+    background-color: #E63946;
+}
+
+.solved-problems {
+    background-color: #EEEEEE;
+}
+
+.friends {
+    background-color: #3A86FF;
+}
+
+.socials {
+    background-color: #FFBE0B;
+}
+

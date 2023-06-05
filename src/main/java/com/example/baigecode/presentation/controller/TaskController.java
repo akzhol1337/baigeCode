@@ -191,7 +191,12 @@ public class TaskController {
         } else {
             model.addAttribute("authenticated", false);
         }
-        model.addAttribute("submissions", submissionService.getAllSubmissionsStatusDto());
+
+        var submissions = submissionService.getAllSubmissionsStatusDto();
+
+        log.info("submissions: {}", submissions);
+
+        model.addAttribute("submissions", submissions);
         return "newstatus";
     }
 

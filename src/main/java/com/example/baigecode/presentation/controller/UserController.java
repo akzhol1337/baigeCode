@@ -24,8 +24,7 @@ public class UserController {
 
     @GetMapping("/save")
     public void saveUser() {
-        Role role = roleService.getRoleById(0L);
-        userService.saveUser(new BaigeUser(null, "Sanjik", "pass", null, 50.7, 1000, 20, 159, 20, 79, 60, "https://stickerly.pstatic.net/sticker_pack/jrgoJQSRsMqUXm7xXV6DQ/HAUK7I/31/2b9db878-a7bc-4fea-8ca7-c1ed406bc411.png", List.of(), List.of()));
+        userService.saveUser(new BaigeUser(null, "akzhol1337", "pass", null, 50.7, 1000, 20, 159, 20, 79, 60, "https://stickerly.pstatic.net/sticker_pack/jrgoJQSRsMqUXm7xXV6DQ/HAUK7I/31/2b9db878-a7bc-4fea-8ca7-c1ed406bc411.png", List.of(), List.of()));
     }
 
     @PostMapping("/follow/{followerUsername}/{followingUsername}")

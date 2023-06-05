@@ -1,95 +1,121 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="problems.css">
-    <title>Status</title>
-    <script>
-        function problem() {
-            window.location.href="@{'/problem/' + ${problem.id}}";
-        }
-    </script>
+    <title>Profile</title>
+    <link rel="shortcut icon" href="../img/horse.png" type="image/x-icon">
+
+
+
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/style.css">
+
+    <script src="../js/script.js"></script>
+
 </head>
 <body>
+<div class="main pt-8 pl-4 flex flex-row h-max">
+    <div class="sidebar flex flex-col pt-10 pl-3 pr-5 h-screen sticky top-0">
+        <a href="/index.html">
+            <img class="basis-1/5 mb-auto" src="../img/horse.png" width="40px">
+        </a>
 
-    <div class="sidenav">    
-        <img src="../img/logo.png" width = "45">
+        <div class="pages basis-3/5 my-36 align-center">
+            <a href="./problems.html">
+                <img src="../img/problems.png" class = "mb-4"  width="40px">
+            </a>
 
-        <a id = "profile" th:href="@{/myProfile}"><svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16"><path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/></svg></a>
-        <a id = "problems" th:href="@{/status}"><svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-bar-chart" viewBox="0 0 16 16"><path d="M4 11H2v3h2v-3zm5-4H7v7h2V7zm5-5v12h-2V2h2zm-2-1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1h-2zM6 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7zm-5 4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-3z"/></svg></a>
-        <a id = "coding" th:href="@{problems}"><svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-keyboard" viewBox="0 0 16 16"><path d="M14 5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h12zM2 4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H2z"/><path d="M13 10.25a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm0-2a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm-5 0A.25.25 0 0 1 8.25 8h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 8 8.75v-.5zm2 0a.25.25 0 0 1 .25-.25h1.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-1.5a.25.25 0 0 1-.25-.25v-.5zm1 2a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm-5-2A.25.25 0 0 1 6.25 8h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 6 8.75v-.5zm-2 0A.25.25 0 0 1 4.25 8h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 4 8.75v-.5zm-2 0A.25.25 0 0 1 2.25 8h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 2 8.75v-.5zm11-2a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm-2 0a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm-2 0A.25.25 0 0 1 9.25 6h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 9 6.75v-.5zm-2 0A.25.25 0 0 1 7.25 6h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 7 6.75v-.5zm-2 0A.25.25 0 0 1 5.25 6h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 5 6.75v-.5zm-3 0A.25.25 0 0 1 2.25 6h1.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-1.5A.25.25 0 0 1 2 6.75v-.5zm0 4a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zm2 0a.25.25 0 0 1 .25-.25h5.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-5.5a.25.25 0 0 1-.25-.25v-.5z"/></svg></a>
-    </div>
-    
+            <a href="./contests.html">
+                <img src="../img/contests.png" class = "mb-4" width="40px">
+            </a>
 
-    <div class="container">
-        <div class="card">            
-            <div class="options">
-                <select class="difficulty">
-                    <option>Difficulty</option>
-                    <option id="easy" value="1">Easy</option>
-                    <option id="medium" value="2">Medium</option>
-                    <option id="hard" value="3">Hard</option>
-                </select>
-
-                <select class="tags">
-                    <option>Tags</option>
-                    <option value="1">Linked List</option>
-                    <option value="2">Hash Map</option>            
-                </select>
-
-                <select class="status">
-                    <option>Status</option>
-                    <option id="todo" value="1">Todo</option>
-                    <option id="solved" value="2">Solved</option>  
-                    <option id="attempted" value="3">Attempted</option>  
-                </select>
-
-                <input type="text" placeholder="Search..">
-
-
-            </div>
-
-            <div class="titles">
-                <p class = "status">Status</p>
-                <p class = "title">Title</p>
-                <p class= "difficulty">Difficulty</p>
-            </div>
-
-            <div th:each="problem : ${problems}" class="problem-set">
-
-                <a th:href="@{'/problem/' + ${problem.id}}" style="text-decoration: none; color: white;">
-                    <div class="problem">
-                        <span class = "icon">
-                            <svg xmlns="http://wwxw.w3.org/2000/svg" x="0px" y="0px"
-                                 width="25" height="25"viewBox="0 0 48 48" style=" fill:#000000;"><linearGradient id="HoiJCu43QtshzIrYCxOfCa_VFaz7MkjAiu0_gr1" x1="21.241" x2="3.541" y1="39.241" y2="21.541" gradientUnits="userSpaceOnUse"><stop offset=".108" stop-color="#0d7044"></stop><stop offset=".433" stop-color="#11945a"></stop></linearGradient><path fill="url(#HoiJCu43QtshzIrYCxOfCa_VFaz7MkjAiu0_gr1)" d="M16.599,41.42L1.58,26.401c-0.774-0.774-0.774-2.028,0-2.802l4.019-4.019	c0.774-0.774,2.028-0.774,2.802,0L23.42,34.599c0.774,0.774,0.774,2.028,0,2.802l-4.019,4.019	C18.627,42.193,17.373,42.193,16.599,41.42z"></path><linearGradient id="HoiJCu43QtshzIrYCxOfCb_VFaz7MkjAiu0_gr2" x1="-15.77" x2="26.403" y1="43.228" y2="43.228" gradientTransform="rotate(134.999 21.287 38.873)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#2ac782"></stop><stop offset="1" stop-color="#21b876"></stop></linearGradient><path fill="url(#HoiJCu43QtshzIrYCxOfCb_VFaz7MkjAiu0_gr2)" d="M12.58,34.599L39.599,7.58c0.774-0.774,2.028-0.774,2.802,0l4.019,4.019	c0.774,0.774,0.774,2.028,0,2.802L19.401,41.42c-0.774,0.774-2.028,0.774-2.802,0l-4.019-4.019	C11.807,36.627,11.807,35.373,12.58,34.599z"></path></svg>
-                        </span>
-
-                        <h4 class = "problem-name" th:text="${problem.getTitle()}">2*A</h4>
-                        <h5 class = "easy1" th:text="${problem.difficulty}" >Easy</h5>
-
-                    </div>
-                </a>
-
-
-
-
-
-                                
-            </div>
-
+            <a href="./friends.html">
+                <img src="../img/friends.png" class = "mb-4" width="40px">
+            </a>
 
         </div>
-        
-        <div class="right">
-            <div class="problem-data">
-                <h3 class="easy2">Easy: <span>2</span></h3>
-                <h3 class="medium2">Medium: <span>0</span></h3>
-                <h3 class="hard2">Hard: <span>0</span></h3>
-            </div>          
+
+
+        <div class="basis-1/5 mt-auto mb-0 justify-end items-end">
+            <a href="/profile.html">
+                <img src="../img/akzhol.jpg" class=" rounded-full h-10 w-10">
+            </a>
         </div>
+
+
+
     </div>
-    
+
+
+    <div class="submission-info flex flex-col w-full rounded-t-3xl py-20 px-24">
+
+        <div class="submission-header flex flex-row">
+            <div class="mr-auto">
+                <div class="title-container flex flex-row mr-auto text-white mb-5">
+                    <p id = "title" class = "text-left text-3xl font-semibold">Problem List</p>
+                </div>
+
+
+                <div class="dropdowns pt-2">
+                    <select class="difficulty border-solid border-2 p-2 rounded-md mr-3">
+                        <option value="0">Difficulty</option>
+                        <option value="1">Easy</option>
+                        <option value="2">Medium</option>
+                        <option value="3">Hard</option>
+
+                    </select>
+
+                    <select class="status border-solid border-2 p-2 rounded-md mr-3">
+                        <option value="0">Status</option>
+                        <option value="1">Solved</option>
+                        <option value="2">Attempted</option>
+                        <option value="2">todo</option>
+
+                    </select>
+                </div>
+
+
+
+            </div>
+        </div>
+
+
+        <!-- <div class="problems-set mt-16 text-white text-xl h-max flex flex-col">
+            <div class="problem flex flex-row mb-4">
+                <img src="../img/accept.png" width="35px">
+                <p class = "py-1 px-3 hover:underline hover:underline-offset-8 ml-7" id = "problem-title">Weight the Tree</p>
+                <p class = "py-1 px-3 rounded-3xl ml-auto" id = "medium"> Medium </p>
+            </div>
+        </div> -->
+
+
+        <table  class="problems problems-set mt-16 text-white text-xl h-max flex flex-col">
+            <tr id="header">
+                <th id="taskid">Difficulty</th>
+                <th id="username">Description</th>
+                <th id="totalSubmissions">Total Submissions</th>
+                <th id="usersSolved">Users Solved</th>
+            </tr>
+
+            <tr id="pr" th:each="problem : ${problems}" >
+                <td id="difficulty" th:text="${problem.difficulty}"></td>
+                <td id="description"><a th:href="@{'/problem/' + ${problem.id}}" > <div th:text="${problem.title}"></div> </a></td>
+                <td id="total_submissions" th:text="${problem.totalSubmissions}"></td>
+                <td id="users_solved" th:text="${problem.usersSolved}"></td>
+            </tr>
+        </table>
+
+
+
+
+    </div>
+
+
+
+</div>
+</div>
 </body>
 </html>

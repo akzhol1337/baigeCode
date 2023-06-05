@@ -58,4 +58,12 @@ public class BaigeCodeApplication{
         return new BCryptPasswordEncoder();
     }
 
+//    @Bean
+//    CommandLineRunner runner(TestCasesRepository repository){
+//        return args -> {
+//            TestCases testCases = new TestCases(2L, List.of("2", "45", "1553", "1991"), List.of("4", "90", "3106", "3982"));
+//            repository.insert(testCases);
+//        };
+//    }
+
 }
